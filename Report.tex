@@ -1,0 +1,138 @@
+% !TeX spellcheck = it_IT
+\documentclass[10pt, english]{article}
+\usepackage[utf8]{inputenc}
+\usepackage {graphicx}
+\usepackage{hyperref} 
+\usepackage{float}
+
+% MARGINI LARGHI
+\textwidth 6.3 in % Width of text line.
+    \textheight 9.2 in
+    \oddsidemargin 0 in      %   Left margin on odd-numbered pages.
+    \evensidemargin 0 in      %   Left margin on even-numbered pages.
+    \topmargin 0.2 in
+    \headheight 0 in       %   Width of marginal notes.
+    \headsep 0 in
+    \topskip 0 in
+    
+\title{\textbf{THO\\Treasure Hunt Organizer}}
+\author{
+	Caselli, Ashley\\
+	\texttt{ashley.caselli@studio.unibo.it}
+	\and
+	Mambelli, Giacomo\\
+	\texttt{giacomo.mambelli@studio.unibo.it}
+	\and
+	Tassinari, Francesca\\
+	\texttt{francesc.tassinari10@studio.unibo.it}
+	\and
+	Vattimo, Carmine\\
+	\texttt{carmine.vattimo@studio.unibo.it}
+}
+\date{\today}
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+\section{Introduction}
+Questo documento descrive il progetto finale del corso integrato SSS.. Il focus di tale progetto è, oltre all'effettivo sviluppo del sistema, il processo adottato per lo sviluppo in team, mettendo in pratica al meglio possibile ciò che è stato ampiamente studiato nel corso.
+
+% This document contains the final work of PPS course. The goal has been 
+
+\section{Requirements}
+THO è un sistema distribuito con cui è possibile organizzare e giocare a cacce al tesoro.
+%THO is a Treasure Hunt Organizer distributed system.
+L’idea di base prevede due macro-sistemi:\\
+\begin{itemize}
+	\item L'organizzatore
+	\item I team partecipanti alla caccia al tesoro
+\end{itemize}
+\subsection*{Organizzatore}
+L’organizzazione di una caccia al tesoro viene fatta tramite un’applicazione desktop che permette all'organizzatore di scegliere una città/location per il gioco tramite una mappa. Attraverso tale mappa ha la possibilità di impostare i punti di interesse che corrisponderanno alle varie tappe del gioco. Ad ogni punto di interesse è associato un mini gioco/indovinello che sarà creato e poi fornito ad ogni team che durante la caccia raggiungerà tale punto. La corretta risoluzione del quiz consentirà al team di avanzare nel gioco.\\
+L'organizzatore, a gioco avviato, ha la possibilità di controllarne l'andamentoxsrgthbybuhyg ed eventualmente di dare indicazioni in tempo reale ai team per aiutarli ad arrivare al successivo punto di interesse oppure di inviare un messaggio di vincita della caccia al tesoro da parte di un team.
+
+\subsection*{Team}
+Il sistema lato giocatori consiste nello sviluppo di un'applicazione mobile, che attraverso il GPS li colloca sulla mappa di gioco e permette loro di essere avvisati nel momento in cui raggiungono un determinato punto di interesse. Il raggiungimento di un punto di interesse permetterà loro di ricevere il quiz associato a tale punto e, successivamente alla corretta risoluzione del quiz, anche il nuovo indizio che gli consentirà di procedere nel gioco.
+
+\subsection*{Modalità di sviluppo}
+\begin{itemize}
+	\item \textbf{Scrum} utilizzato per la gestione del ciclo di sviluppo del progetto.
+\end{itemize}
+\subsection*{Strumenti di sviluppo}
+\begin{itemize}
+	\item \textbf{Trello} utilizzato come bacheca per la divisione dei compiti;
+	\item \textbf{Gradle} utilizzato come sistema per lo sviluppo del progetto;
+	\item \textbf{IntelliJ IDEA} ambiente di sviluppo;
+	\item \textbf{Git} utilizzato per il controllo delle versioni;
+	\item \textbf{GitHub} utilizzato come repository;
+	\item \textbf{Travis CI} utilizzato come build e test del progetto.
+\end{itemize}
+
+\section{Process}
+Inizialmente i membri del progetto "THO" hanno individuato la figura del Product Owner in Carmine Vattimo come autore dell'idea proposta. Per lo sviluppo del sistema THO si è adottato un approccio Agile di schedulazione divisione e verifica dei task adottando come modalità di sviluppo Scrum. 
+\\ Inizialmente abbiamo proceduto ad analizzare l'idea iniziale del progetto come segue:
+\begin{itemize}
+	\item Individuazioni specifiche di base;
+	\item Individuazione entità da sviluppare;
+	\item Scelta di quale broker per lo scambio di messaggi utilizzare;
+	\item Scelta del database;
+	\item Scelta dei linguaggi di programmazione desktop e mobile.
+\end{itemize}
+
+Al termine di questa fase abbiamo poi pianificato su Trello i 5 sprint da 20 ore, in cui a fine di ognuno di essi, abbiamo fatto una sprint review.\\Dopo aver svolto l'analisi del problema abbiamo creato il Product Backlog composto da varie user story, suddivise nei 5 sprint in ordine di priorità. \\
+
+{\ [immagine del product backlog]}\\
+
+Le user story sono poi state ampliate in vari task, che durante le sprint review ogni membro del team doveva assegnarsi per poi portare a termine. \\Una sprint review iniziava raccontandoci e spiegandoci cosa, uno o più membri del gruppo, avevano fatto durante i giorni trascorsi. A fine di ogni sprint review si valutava il lavoro compiuto, si creava nuovi task, ci si divideva i nuovi compiti e si stabiliva, approssimativamente, il tempo pensato per lo svolgimento dei nuovi task assegnati. Durante queste sprint review è stato possibile monitorare l'avanzamento del progetto. Inizialmente abbiamo avuto qualche difficoltà a utilizzare la modalità di sviluppo Scrum, perchè non avevamo chiaro come si costruiva e come funzionava un Product Backlog. Qualche difficoltà durante l'avvio del progetto l'abbiamo riscontrata anche nello stimare i tempi per lo svolgimento di ogni singolo task, non sapevamo come calcolare le ore e come metterle nel Product Backlog. E' stato veramente un lavoro di squadra dove ognuno metteva in campo il proprio sapere. A volte alcuni task venivano anche svolti insieme fra alcuni membri del progetto affinchè il know-how di ogni componente potesse aumentare grazie all'altra persona.
+
+
+
+%Rabbit Usage: As a possible counter-effect is that adding RabbitMQ in the middle, you will add some latency to the solution. However you have the possibility to gain in terms of reliability, flexibility, scalability,...
+
+
+\section{Analysis}
+L'applicazione THO, ha lo scopo di gestire le cacce al tesoro create da un organizzatore che dopo aver scelto una location/città in cui svolgere la gara, aver scelto i punti di interesse, aver inserito i relativi indovinelli nei POI e aver fatto iscrivere i team a una caccia ben specifica potrà far partire la gara.
+\\Abbiamo deciso che questa applicazione abbia una visione desktop e una mobile.
+\\Abbiamo deciso di utilizzare RabbitMQ come broker per scambiare i messaggi. Questo messagge broker funziona come un ufficio di posta. Ci sono due entità producer e consumer, la prima manda alla seconda un messaggio e la seconda lo riceve. Il messaggio viene conservato prima di essere spedito in un buffer. Abbiamo scelto RabbitMQ perchè ci garantisce:
+\begin{itemize}
+	\item che il messaggio sia stato inviato e che sia ricevuto dal consumer
+	\item che i messaggi siano inviati in ordine
+	\item che se un messaggio non è riuscito ad arrivare al consumer torna al producer, affinchè il producer non lo riesce a rinviare ed a essere sicuro che il consumer lo abbia ricevuto
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=15cm, width=14cm,keepaspectratio]{../Desktop/ProgettoPPSscritto/rabbit}
+	\caption{RabbitMQ e Database}
+\end{figure}
+
+Abbiamo pensato anche a come strutturare il database utilizziamo MySQL in modo centralizzato, che memorizza solo i dati permanenti, ovvero un unico DB con all'interno tutte le varie informazioni sugli utenti che partecipano alla caccia al tesoro, i punti d'interesse ecc. L'organizzatore è l'utente che crea una caccia al tesoro aggiungendo i punti d'interesse, i vari quiz e gli indovinelli/coordinate dei POI. Abbiamo pensato anche che l'organizzatore non deve essere lui a leggere/scrivere messaggi con i giocatori, ma questo lo dovrà fare una terza entità. Questa terza entità dovrà occuparsi di ricevere i messaggi leggerli e scriverli nel DB, RabbitMQ è un broker solo per lo scambio di messaggi non legge o scrive messaggi. Questa terza entità  sarà il conduttore del gioco. Abbiamo anche pensato al caso sfortunato che il dispositivo del giocatore che usa durante la caccia al tesoro non funzioni più, in questo caso non sarebbe un problema perchè nel DB il giocatore si è registrato con il suo ID e se il dispositivo non dovesse andare più, potrebbe comunque accedere al database con un altro dispositivo utilizzando l'ID scelto.
+
+
+
+\subsection{Requirements}
+\subsection{Domain Model}
+
+\section{Design}
+\subsection{Architecture}
+\subsection{Detailed design}
+\section{Implementation}
+\subsection{Test}
+\subsection{Notes}
+\subsection{Ashley Caselli}
+\subsection{Carmine Vattimo}
+\subsection{Francesca Tassinari}
+\subsection{Giacomo Mambelli}
+\section{Deployment}
+\section{Retrospection}
+\begin{itemize}
+	\item creare per i giocatori che parteciperanno a team un metodo per gestire loro più device che però si riferiscano al loro team;
+	\item creare un messaggio che dopo un timer definito dall'organizzatore, che mandi dal device del team la sua posizione alla applicazione desktop per mostrare dove si trovano e l'organizzarore possa mandare un messaggio per aiutarli a trovare il prossimo punto di interesse;
+	\item 
+\end{itemize}
+
+\vspace{-30pt}
+\end{document}
