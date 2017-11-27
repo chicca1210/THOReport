@@ -38,9 +38,15 @@
 \newpage
 
 \section{Introduction}
-Questo documento descrive il progetto finale del corso integrato SSS.. Il focus di tale progetto è, oltre all'effettivo sviluppo del sistema, il processo adottato per lo sviluppo in team, mettendo in pratica al meglio possibile ciò che è stato ampiamente studiato nel corso.
-
-% This document contains the final work of PPS course. The goal has been 
+% descrizione anche sommaria di cosa il sistema implementato realizza
+% This document contains the final work of PPS course. The goal has been
+Questo documento descrive il progetto finale del corso integrato SSS.. Il focus di tale progetto è, oltre all'effettivo sviluppo del sistema, il processo adottato per lo sviluppo in team, mettendo in pratica al meglio possibile ciò che è stato ampiamente studiato nel corso.\\
+This document contains the final work of PPS course. The goal has been the implementation of a software system, using good technics of implementation, team organization and work flow and apply in the best way possible the teachings of the PPS course.\\
+THO (Treasure Hunt Organizer) is a software system that helps in the organization and during the play time of treasure hunts.
+The system provides a desktop software to the organizer of the hunt and a web application designed for the players.\\
+The desktop module is an application aimed to make as simple as possible the organization of a treasure hunt. This purpose is actualized by a minimal user interface that allows to create, modify and manage a hunt with its points of interest (POI).\\
+The players which walk around during the game and need clues and information to make them able to win are helped by the web application. This app provides a map showing the position of the device and purpose to the user quiz and clue useful to reach all the points of interest of the running treasure hunt.\\
+All the data of the hunts are saved on a database hosted by a server that also has the task of managing the communication.
 
 \section{Requirements}
 THO è un sistema distribuito con cui è possibile organizzare e giocare a cacce al tesoro.
@@ -105,7 +111,7 @@ L'applicazione THO, ha lo scopo di gestire le cacce al tesoro create da un organ
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[height=15cm, width=14cm,keepaspectratio]{../Desktop/ProgettoPPSscritto/rabbit}
+	\includegraphics[width=0.8\textwidth]{img/rabbit.png}
 	\caption{RabbitMQ e Database}
 \end{figure}
 
@@ -123,9 +129,37 @@ Abbiamo pensato anche a come strutturare il database utilizziamo MySQL in modo c
 \subsection{Test}
 \subsection{Notes}
 \subsection{Ashley Caselli}
+\begin{itemize}
+	\item Gradle configuration;
+	\item Travis CI configuration;
+	\item core: message interface and exceptions;
+	\item organizer: mvc organization;
+	\item organizer modelBroker: message sender/receiver;
+	\item organizer javaFX;
+	\item organizer grafic interface with Google Maps;
+	\item server receiver: rabbitMQ connection and queue subscription;
+	
+\end{itemize}
 \subsection{Carmine Vattimo}
+\begin{itemize}
+	\item server installation;
+	\item database mySQL set-up;
+	\item database operations crud;
+	\item server receiver: database comunication for each kind of message;
+	\item organizer Google Maps Markers;
+\end{itemize}
 \subsection{Francesca Tassinari}
+\begin{itemize}
+	\item player HTML;
+\end{itemize}
 \subsection{Giacomo Mambelli}
+\begin{itemize}
+	\item core: entities realizarion
+	\item core: messages with serialization/deserialization;
+	\item organizer: message exchange;
+	\item server receiver: message recognizing and deserialization;
+	\item player game logic in javascript, message exchange, data persist;
+\end{itemize}
 \section{Deployment}
 \section{Retrospection}
 \begin{itemize}
