@@ -1,5 +1,5 @@
 % !TeX spellcheck = it_IT
-\documentclass[10pt, english]{article}
+\documentclass[12pt, english]{report}
 \usepackage[utf8]{inputenc}
 \usepackage {graphicx}
 \usepackage{hyperref} 
@@ -37,26 +37,78 @@
 \tableofcontents
 \newpage
 
-\section{Introduction}
+\chapter{Introduction}
 % descrizione anche sommaria di cosa il sistema implementato realizza
 % This document contains the final work of PPS course. The goal has been
-Questo documento descrive il progetto finale del corso integrato SSS.. Il focus di tale progetto è, oltre all'effettivo sviluppo del sistema, il processo adottato per lo sviluppo in team, mettendo in pratica al meglio possibile ciò che è stato ampiamente studiato nel corso.\\
-This document contains the final work of PPS course. The goal has been the implementation of a software system, using good technics of implementation, team organization and work flow and apply in the best way possible the teachings of the PPS course.\\
+% Il focus di tale progetto è, oltre all'effettivo sviluppo del sistema, il processo adottato per lo sviluppo in team, mettendo in pratica al meglio possibile ciò che è stato ampiamente studiato nel corso.
+This document contains the final work of PPS course. The focus of this project is, in addition to realised the system, as we have learned and studied in the couse is work in a team and divided the task.
+The goal has been the implementation of a software system, using good technics of implementation, team organization and work flow and apply in the best way possible the teachings of the PPS course.\\
 THO (Treasure Hunt Organizer) is a software system that helps in the organization and during the play time of treasure hunts.
 The system provides a desktop software to the organizer of the hunt and a web application designed for the players.\\
 The desktop module is an application aimed to make as simple as possible the organization of a treasure hunt. This purpose is actualized by a minimal user interface that allows to create, modify and manage a hunt with its points of interest (POI).\\
 The players which walk around during the game and need clues and information to make them able to win are helped by the web application. This app provides a map showing the position of the device and purpose to the user quiz and clue useful to reach all the points of interest of the running treasure hunt.\\
 All the data of the hunts are saved on a database hosted by a server that also has the task of managing the communication.
 
-\section{Requirements}
-THO è un sistema distribuito con cui è possibile organizzare e giocare a cacce al tesoro.
-%THO is a Treasure Hunt Organizer distributed system.
-L’idea di base prevede due macro-sistemi:\\
+\chapter{Processo di sviluppo software}
+\section{Metodologia di sviluppo}
+Inizialmente i membri del progetto "THO" hanno individuato la figura del Product Owner in Carmine Vattimo come autore dell'idea proposta. Per lo sviluppo del sistema THO si è adottato un approccio Agile di schedulazione divisione e verifica dei task adottando come modalità di sviluppo Scrum. 
+\\ Inizialmente abbiamo proceduto ad analizzare l'idea iniziale del progetto come segue:
 \begin{itemize}
-	\item L'organizzatore
-	\item I team partecipanti alla caccia al tesoro
+	\item Individuazioni specifiche di base;
+	\item Individuazione entità da sviluppare;
+	\item Scelta di quale broker per lo scambio di messaggi utilizzare;
+	\item Scelta del database;
+	\item Scelta dei linguaggi di programmazione desktop e mobile.
 \end{itemize}
-\subsection*{Organizer use cases}
+
+Al termine di questa fase abbiamo poi pianificato su Trello i 5 sprint da 20 ore, in cui a fine di ognuno di essi, abbiamo fatto una sprint review.\\Dopo aver svolto l'analisi del problema abbiamo creato il Product Backlog composto da varie user story, suddivise nei 5 sprint in ordine di priorità. \\
+
+{\ [immagine del product backlog]}\\
+
+Le user story sono poi state ampliate in vari task, che durante le sprint review ogni membro del team doveva assegnarsi per poi portare a termine. \\Una sprint review iniziava raccontandoci e spiegandoci cosa, uno o più membri del gruppo, avevano fatto durante i giorni trascorsi. A fine di ogni sprint review si valutava il lavoro compiuto, si creava nuovi task, ci si divideva i nuovi compiti e si stabiliva, approssimativamente, il tempo pensato per lo svolgimento dei nuovi task assegnati. Durante queste sprint review è stato possibile monitorare l'avanzamento del progetto. Inizialmente abbiamo avuto qualche difficoltà a utilizzare la modalità di sviluppo Scrum, perchè non avevamo chiaro come si costruiva e come funzionava un Product Backlog. Qualche difficoltà durante l'avvio del progetto l'abbiamo riscontrata anche nello stimare i tempi per lo svolgimento di ogni singolo task, non sapevamo come calcolare le ore e come metterle nel Product Backlog. E' stato veramente un lavoro di squadra dove ognuno metteva in campo il proprio sapere. A volte alcuni task venivano anche svolti insieme fra alcuni membri del progetto affinchè il know-how di ogni componente potesse aumentare grazie all'altra persona.
+\section{Modalità di sviluppo}
+\begin{itemize}
+	\item \textbf{Scrum} utilizzato per la gestione del ciclo di sviluppo del progetto.
+\end{itemize}
+\section{Strumenti di sviluppo}
+\begin{itemize}
+	\item \textbf{Trello} utilizzato come bacheca per la divisione dei compiti;
+	\item \textbf{Gradle} utilizzato come sistema per lo sviluppo del progetto;
+	\item \textbf{IntelliJ IDEA} ambiente di sviluppo;
+	\item \textbf{Git} utilizzato per il controllo delle versioni;
+	\item \textbf{GitHub} utilizzato come repository;
+	\item \textbf{Travis CI} utilizzato come build e test del progetto.
+\end{itemize}
+
+\chapter{Requisiti}
+\section{Requisiti funzionali}
+Utilizzando l'approccio Agile nel primo sprint abbiamo investito molte ore proprio nel raffinamento dei requisiti, ovvero abbiamo pensato come doveva funzionare il progetto e definire i compiti delle varie entità. In questo modo abbiamo evidenziato i requisiti funzionali:
+\begin{itemize}
+	\item \textbf{Lato Organizzatore} 
+	\begin{enumerate}
+		\item Creare una nuova caccia al tesoro
+			\begin{enumerate}
+				\item [a.] Inserire il nome della nuova caccia al tesoro
+				\item [b.] Inserire la data di inzio della nuova caccia al tesoro
+				\item [c.] Inserire l'ora di inzio della nuova caccia al tesoro
+				\item [d.] Inserire nella mappa il luogo di svolgimento della caccia al tesoro
+				\item [e.] Inserire nella mappa i punti di interesse che dovranno essere ragginti dai giocatori
+				\item [f.] Nei punti di interesse aggiungere anche il quiz da risolvere e quando l'indizio per il prossimo punto di interesse
+				\item [g.] Cancellare/aggiungere dei punti di interesse con rispettivi indizi e quiz
+				\item [h.] Visualizzare i punti di interesse già creati in un'elenco
+				\item [i.] Far partire la caccia al tesoro oppure stopparla
+			\end{enumerate}
+		\item Caricare una caccia al tesoro già creata
+		\begin{enumerate}
+			\item [a.] Visualizzare il codice della caccia al tesoro avviata
+			\item [b.] Visualizzare i punti di interesse già creati in un'elenco
+			\item [c.] Cancellare/aggiungere dei punti di interesse con rispettivi indizi e quiz
+			\item [d.] Far partire la caccia al tesoro oppure stopparla
+		\end{enumerate}
+		\item Cancellare Una caccia al tesoro già creata
+	\end{enumerate}
+\end{itemize}
+\subsection*{Organizzatore}
 L’organizzazione di una caccia al tesoro viene fatta tramite un’applicazione desktop che permette all'organizzatore di scegliere una città/location per il gioco tramite una mappa. Attraverso tale mappa ha la possibilità di impostare i punti di interesse che corrisponderanno alle varie tappe del gioco. Ad ogni punto di interesse è associato un mini gioco/indovinello che sarà creato e poi fornito ad ogni team che durante la caccia raggiungerà tale punto. La corretta risoluzione del quiz consentirà al team di avanzare nel gioco.\\
 L'organizzatore, a gioco avviato, ha la possibilità di controllarne l'andamento ed eventualmente di dare indicazioni in tempo reale ai team per aiutarli ad arrivare al successivo punto di interesse oppure di inviare un messaggio di vincita della caccia al tesoro da parte di un team.\\
 
@@ -73,47 +125,37 @@ Potrà richiedere un codice numerico da diffondere ai partecipanti, che lo usera
 L’organizzatore avrà la possibilità di decidere il momento in cui aprire le iscrizioni alla caccia al tesoro cliccando su in apposito tasto.\\
 Analogamente potrà chiudere le iscrizioni.\\
 L’organizzatore non potrà modificare la caccia al tesoro se è già in svolgimento, cioè se ne ha già aperto le iscrizioni.\\
+\begin{itemize}
+	\item \textbf{Lato Giocatore}
+		\begin{enumerate}
+			\item 
+		\end{enumerate} 
+	\item \textbf{Lato Server}
+		\begin{enumerate}
+			\item 
+		\end{enumerate}
+\end{itemize}
+THO è un sistema distribuito con cui è possibile organizzare e giocare a cacce al tesoro.
+%THO is a Treasure Hunt Organizer distributed system.
+L’idea di base prevede due macro-sistemi:\\
+\begin{itemize}
+	\item L'organizzatore
+	\item I team partecipanti alla caccia al tesoro
+\end{itemize}
 
-\subsection*{Team}
+
+\section{Giocatore}
 Il sistema lato giocatori consiste nello sviluppo di un'applicazione mobile, che attraverso il GPS li colloca sulla mappa di gioco e permette loro di essere avvisati nel momento in cui raggiungono un determinato punto di interesse. Il raggiungimento di un punto di interesse permetterà loro di ricevere il quiz associato a tale punto e, successivamente alla corretta risoluzione del quiz, anche il nuovo indizio che gli consentirà di procedere nel gioco.
 
-\subsection*{Modalità di sviluppo}
-\begin{itemize}
-	\item \textbf{Scrum} utilizzato per la gestione del ciclo di sviluppo del progetto.
-\end{itemize}
-\subsection*{Strumenti di sviluppo}
-\begin{itemize}
-	\item \textbf{Trello} utilizzato come bacheca per la divisione dei compiti;
-	\item \textbf{Gradle} utilizzato come sistema per lo sviluppo del progetto;
-	\item \textbf{IntelliJ IDEA} ambiente di sviluppo;
-	\item \textbf{Git} utilizzato per il controllo delle versioni;
-	\item \textbf{GitHub} utilizzato come repository;
-	\item \textbf{Travis CI} utilizzato come build e test del progetto.
-\end{itemize}
+\section{Requisiti non funzionali}
 
-\section{Process}
-Inizialmente i membri del progetto "THO" hanno individuato la figura del Product Owner in Carmine Vattimo come autore dell'idea proposta. Per lo sviluppo del sistema THO si è adottato un approccio Agile di schedulazione divisione e verifica dei task adottando come modalità di sviluppo Scrum. 
-\\ Inizialmente abbiamo proceduto ad analizzare l'idea iniziale del progetto come segue:
-\begin{itemize}
-	\item Individuazioni specifiche di base;
-	\item Individuazione entità da sviluppare;
-	\item Scelta di quale broker per lo scambio di messaggi utilizzare;
-	\item Scelta del database;
-	\item Scelta dei linguaggi di programmazione desktop e mobile.
-\end{itemize}
-
-Al termine di questa fase abbiamo poi pianificato su Trello i 5 sprint da 20 ore, in cui a fine di ognuno di essi, abbiamo fatto una sprint review.\\Dopo aver svolto l'analisi del problema abbiamo creato il Product Backlog composto da varie user story, suddivise nei 5 sprint in ordine di priorità. \\
-
-{\ [immagine del product backlog]}\\
-
-Le user story sono poi state ampliate in vari task, che durante le sprint review ogni membro del team doveva assegnarsi per poi portare a termine. \\Una sprint review iniziava raccontandoci e spiegandoci cosa, uno o più membri del gruppo, avevano fatto durante i giorni trascorsi. A fine di ogni sprint review si valutava il lavoro compiuto, si creava nuovi task, ci si divideva i nuovi compiti e si stabiliva, approssimativamente, il tempo pensato per lo svolgimento dei nuovi task assegnati. Durante queste sprint review è stato possibile monitorare l'avanzamento del progetto. Inizialmente abbiamo avuto qualche difficoltà a utilizzare la modalità di sviluppo Scrum, perchè non avevamo chiaro come si costruiva e come funzionava un Product Backlog. Qualche difficoltà durante l'avvio del progetto l'abbiamo riscontrata anche nello stimare i tempi per lo svolgimento di ogni singolo task, non sapevamo come calcolare le ore e come metterle nel Product Backlog. E' stato veramente un lavoro di squadra dove ognuno metteva in campo il proprio sapere. A volte alcuni task venivano anche svolti insieme fra alcuni membri del progetto affinchè il know-how di ogni componente potesse aumentare grazie all'altra persona.
 
 
 
 %Rabbit Usage: As a possible counter-effect is that adding RabbitMQ in the middle, you will add some latency to the solution. However you have the possibility to gain in terms of reliability, flexibility, scalability,...
 
 
-\section{Analysis}
+\chapter{Analysis}
 L'applicazione THO, ha lo scopo di gestire le cacce al tesoro create da un organizzatore che dopo aver scelto una location/città in cui svolgere la gara, aver scelto i punti di interesse, aver inserito i relativi indovinelli nei POI e aver fatto iscrivere i team a una caccia ben specifica potrà far partire la gara.
 \\Abbiamo deciso che questa applicazione abbia una visione desktop e una mobile.
 \\Abbiamo deciso di utilizzare RabbitMQ come broker per scambiare i messaggi. Questo messagge broker funziona come un ufficio di posta. Ci sono due entità producer e consumer, la prima manda alla seconda un messaggio e la seconda lo riceve. Il messaggio viene conservato prima di essere spedito in un buffer. Abbiamo scelto RabbitMQ perchè ci garantisce:
