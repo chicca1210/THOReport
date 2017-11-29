@@ -1,20 +1,10 @@
 % !TeX spellcheck = it_IT
-\documentclass[12pt, english]{report}
+\documentclass[12pt, english]{article}
 \usepackage[utf8]{inputenc}
 \usepackage {graphicx}
 \usepackage{hyperref} 
 \usepackage{float}
 
-% MARGINI LARGHI
-\textwidth 6.3 in % Width of text line.
-    \textheight 9.2 in
-    \oddsidemargin 0 in      %   Left margin on odd-numbered pages.
-    \evensidemargin 0 in      %   Left margin on even-numbered pages.
-    \topmargin 0.2 in
-    \headheight 0 in       %   Width of marginal notes.
-    \headsep 0 in
-    \topskip 0 in
-    
 \title{\textbf{THO\\Treasure Hunt Organizer}}
 \author{
 	Caselli, Ashley\\
@@ -37,7 +27,7 @@
 \tableofcontents
 \newpage
 
-\chapter{Introduction}
+\section{Introduction}
 % descrizione anche sommaria di cosa il sistema implementato realizza
 % This document contains the final work of PPS course. The goal has been
 % Il focus di tale progetto è, oltre all'effettivo sviluppo del sistema, il processo adottato per lo sviluppo in team, mettendo in pratica al meglio possibile ciò che è stato ampiamente studiato nel corso.
@@ -49,7 +39,7 @@ The desktop module is an application aimed to make as simple as possible the org
 The players which walk around during the game and need clues and information to make them able to win are helped by the web application. This app provides a map showing the position of the device and purpose to the user quiz and clue useful to reach all the points of interest of the running treasure hunt.\\
 All the data of the hunts are saved on a database hosted by a server that also has the task of managing the communication.
 
-\chapter{Processo di sviluppo software}
+\section{Processo di sviluppo software}
 \section{Metodologia di sviluppo}
 Inizialmente i membri del progetto "THO" hanno individuato la figura del Product Owner in Carmine Vattimo come autore dell'idea proposta. Per lo sviluppo del sistema THO si è adottato un approccio Agile di schedulazione divisione e verifica dei task adottando come modalità di sviluppo Scrum. 
 \\ Inizialmente abbiamo proceduto ad analizzare l'idea iniziale del progetto come segue:
@@ -80,7 +70,7 @@ Le user story sono poi state ampliate in vari task, che durante le sprint review
 	\item \textbf{Travis CI} utilizzato come build e test del progetto.
 \end{itemize}
 
-\chapter{Requisiti}
+\section{Requisiti}
 \section{Requisiti funzionali}
 THO è un sistema distribuito con cui è possibile organizzare e giocare a cacce al tesoro. Utilizzando l'approccio Agile nel primo sprint abbiamo investito molte ore proprio nel raffinamento dei requisiti, ovvero abbiamo pensato come doveva funzionare il progetto e definire i compiti delle varie entità. In questo modo abbiamo evidenziato i requisiti funzionali:
 \begin{itemize}
@@ -122,7 +112,7 @@ L’idea di base prevede due macro-sistemi:\\
 	\item I team partecipanti alla caccia al tesoro
 \end{itemize}
 
-\subsection*{Organizzatore}
+\subsection{Organizzatore}
 L’organizzazione di una caccia al tesoro viene fatta tramite un’applicazione desktop che permette all'organizzatore di scegliere una città/location per il gioco tramite una mappa. Attraverso tale mappa ha la possibilità di impostare i punti di interesse che corrisponderanno alle varie tappe del gioco. Ad ogni punto di interesse è associato un mini gioco/indovinello che sarà creato e poi fornito ad ogni team che durante la caccia raggiungerà tale punto. La corretta risoluzione del quiz consentirà al team di avanzare nel gioco.\\
 L'organizzatore, a gioco avviato, ha la possibilità di controllarne l'andamento ed eventualmente di dare indicazioni in tempo reale ai team per aiutarli ad arrivare al successivo punto di interesse oppure di inviare un messaggio di vincita della caccia al tesoro da parte di un team.\\
 
@@ -141,18 +131,14 @@ Analogamente potrà chiudere le iscrizioni.\\
 L’organizzatore non potrà modificare la caccia al tesoro se è già in svolgimento, cioè se ne ha già aperto le iscrizioni.\\
 
 
-\subsection*{Giocatore}
+\subsection{Giocatore}
 Il sistema lato giocatori consiste nello sviluppo di un'applicazione mobile, che attraverso il GPS li colloca sulla mappa di gioco e permette loro di essere avvisati nel momento in cui raggiungono un determinato punto di interesse. Il raggiungimento di un punto di interesse permetterà loro di ricevere il quiz associato a tale punto e, successivamente alla corretta risoluzione del quiz, anche il nuovo indizio che gli consentirà di procedere nel gioco.
 
 \section{Requisiti non funzionali}
 
-
-
-
 %Rabbit Usage: As a possible counter-effect is that adding RabbitMQ in the middle, you will add some latency to the solution. However you have the possibility to gain in terms of reliability, flexibility, scalability,...
 
-
-\chapter{Analysis}
+\section{Analysis}
 L'applicazione THO, ha lo scopo di gestire le cacce al tesoro create da un organizzatore che dopo aver scelto una location/città in cui svolgere la gara, aver scelto i punti di interesse, aver inserito i relativi indovinelli nei POI e aver fatto iscrivere i team a una caccia ben specifica potrà far partire la gara.
 \\Abbiamo deciso che questa applicazione abbia una visione desktop e una mobile.
 \\Abbiamo deciso di utilizzare RabbitMQ come broker per scambiare i messaggi. Questo messagge broker funziona come un ufficio di posta. Ci sono due entità producer e consumer, la prima manda alla seconda un messaggio e la seconda lo riceve. Il messaggio viene conservato prima di essere spedito in un buffer. Abbiamo scelto RabbitMQ perchè ci garantisce:
