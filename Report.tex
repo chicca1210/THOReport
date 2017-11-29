@@ -82,7 +82,7 @@ Le user story sono poi state ampliate in vari task, che durante le sprint review
 
 \chapter{Requisiti}
 \section{Requisiti funzionali}
-Utilizzando l'approccio Agile nel primo sprint abbiamo investito molte ore proprio nel raffinamento dei requisiti, ovvero abbiamo pensato come doveva funzionare il progetto e definire i compiti delle varie entità. In questo modo abbiamo evidenziato i requisiti funzionali:
+THO è un sistema distribuito con cui è possibile organizzare e giocare a cacce al tesoro. Utilizzando l'approccio Agile nel primo sprint abbiamo investito molte ore proprio nel raffinamento dei requisiti, ovvero abbiamo pensato come doveva funzionare il progetto e definire i compiti delle varie entità. In questo modo abbiamo evidenziato i requisiti funzionali:
 \begin{itemize}
 	\item \textbf{Lato Organizzatore} 
 	\begin{enumerate}
@@ -107,7 +107,21 @@ Utilizzando l'approccio Agile nel primo sprint abbiamo investito molte ore propr
 		\end{enumerate}
 		\item Cancellare Una caccia al tesoro già creata
 	\end{enumerate}
+	\item \textbf{Lato Giocatore}
+		\begin{enumerate}
+			\item giocatore
+		\end{enumerate} 
+	\item \textbf{Lato Server}
+		\begin{enumerate}
+			\item server
+		\end{enumerate}
 \end{itemize}
+L’idea di base prevede due macro-sistemi:\\
+\begin{itemize}
+	\item L'organizzatore
+	\item I team partecipanti alla caccia al tesoro
+\end{itemize}
+
 \subsection*{Organizzatore}
 L’organizzazione di una caccia al tesoro viene fatta tramite un’applicazione desktop che permette all'organizzatore di scegliere una città/location per il gioco tramite una mappa. Attraverso tale mappa ha la possibilità di impostare i punti di interesse che corrisponderanno alle varie tappe del gioco. Ad ogni punto di interesse è associato un mini gioco/indovinello che sarà creato e poi fornito ad ogni team che durante la caccia raggiungerà tale punto. La corretta risoluzione del quiz consentirà al team di avanzare nel gioco.\\
 L'organizzatore, a gioco avviato, ha la possibilità di controllarne l'andamento ed eventualmente di dare indicazioni in tempo reale ai team per aiutarli ad arrivare al successivo punto di interesse oppure di inviare un messaggio di vincita della caccia al tesoro da parte di un team.\\
@@ -125,26 +139,9 @@ Potrà richiedere un codice numerico da diffondere ai partecipanti, che lo usera
 L’organizzatore avrà la possibilità di decidere il momento in cui aprire le iscrizioni alla caccia al tesoro cliccando su in apposito tasto.\\
 Analogamente potrà chiudere le iscrizioni.\\
 L’organizzatore non potrà modificare la caccia al tesoro se è già in svolgimento, cioè se ne ha già aperto le iscrizioni.\\
-\begin{itemize}
-	\item \textbf{Lato Giocatore}
-		\begin{enumerate}
-			\item 
-		\end{enumerate} 
-	\item \textbf{Lato Server}
-		\begin{enumerate}
-			\item 
-		\end{enumerate}
-\end{itemize}
-THO è un sistema distribuito con cui è possibile organizzare e giocare a cacce al tesoro.
-%THO is a Treasure Hunt Organizer distributed system.
-L’idea di base prevede due macro-sistemi:\\
-\begin{itemize}
-	\item L'organizzatore
-	\item I team partecipanti alla caccia al tesoro
-\end{itemize}
 
 
-\section{Giocatore}
+\subsection*{Giocatore}
 Il sistema lato giocatori consiste nello sviluppo di un'applicazione mobile, che attraverso il GPS li colloca sulla mappa di gioco e permette loro di essere avvisati nel momento in cui raggiungono un determinato punto di interesse. Il raggiungimento di un punto di interesse permetterà loro di ricevere il quiz associato a tale punto e, successivamente alla corretta risoluzione del quiz, anche il nuovo indizio che gli consentirà di procedere nel gioco.
 
 \section{Requisiti non funzionali}
