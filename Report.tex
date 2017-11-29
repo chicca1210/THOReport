@@ -90,16 +90,26 @@ THO è un sistema distribuito con cui è possibile organizzare e giocare a cacce
 			\end{enumerate}
 		\item Caricare una caccia al tesoro già creata
 		\begin{enumerate}
-			\item [a.] Visualizzare il codice della caccia al tesoro avviata
+			\item [a.] Visualizzare il codice della caccia al tesoro
 			\item [b.] Visualizzare i punti di interesse già creati in un'elenco
-			\item [c.] Cancellare/aggiungere dei punti di interesse con rispettivi indizi e quiz
-			\item [d.] Far partire la caccia al tesoro oppure stopparla
+			\item [c.] Cancellare/aggiungere dei punti di interesse con rispettivi indizzi e quiz
+			\item [d.] Aprire le iscrizioni a una caccia al tesoro e avviarla
 		\end{enumerate}
 		\item Cancellare Una caccia al tesoro già creata
 	\end{enumerate}
 	\item \textbf{Lato Giocatore}
 		\begin{enumerate}
-			\item giocatore
+			\item Creare un account
+			\begin{enumerate}
+				\item [a.] Creare il nome del gruppo
+				\item [b.] Creare la password del gruppo
+				\item [c.] Confermare la nuova password del gruppo
+			\end{enumerate}
+			\item Fare login
+			\begin{enumerate}
+				\item [a.] Inserire il nome del gruppo
+				\item [b.] Inserire la password del gruppo
+			\end{enumerate}
 		\end{enumerate} 
 	\item \textbf{Lato Server}
 		\begin{enumerate}
@@ -156,17 +166,24 @@ L'applicazione THO, ha lo scopo di gestire le cacce al tesoro create da un organ
 
 Abbiamo pensato anche a come strutturare il database utilizziamo MySQL in modo centralizzato, che memorizza solo i dati permanenti, ovvero un unico DB con all'interno tutte le varie informazioni sugli utenti che partecipano alla caccia al tesoro, i punti d'interesse ecc. L'organizzatore è l'utente che crea una caccia al tesoro aggiungendo i punti d'interesse, i vari quiz e gli indovinelli/coordinate dei POI. Abbiamo pensato anche che l'organizzatore non deve essere lui a leggere/scrivere messaggi con i giocatori, ma questo lo dovrà fare una terza entità. Questa terza entità dovrà occuparsi di ricevere i messaggi leggerli e scriverli nel DB, RabbitMQ è un broker solo per lo scambio di messaggi non legge o scrive messaggi. Questa terza entità  sarà il conduttore del gioco. Abbiamo anche pensato al caso sfortunato che il dispositivo del giocatore che usa durante la caccia al tesoro non funzioni più, in questo caso non sarebbe un problema perchè nel DB il giocatore si è registrato con il suo ID e se il dispositivo non dovesse andare più, potrebbe comunque accedere al database con un altro dispositivo utilizzando l'ID scelto.
 
+\section{Design architetturale}
+\subsection{Desktop}
+\subsubsection{Model-View-Controller}
+\subsubsection{Observer}
+\subsection{App Mobile}
+\subsubsection{App Ibrida}
+\subsection{Server}
+\subsubsection{Middleware}
+\subsubsection{Data Access Layer}
+\subsubsection{Database}
 
+\section{Design di dettaglio}
+\subsection{Organizzazione del codice}
+\subsection{Server}
+\subsubsection{Middleware}
+\subsubsection{Database}
 
-\subsection{Requirements}
-\subsection{Domain Model}
-
-\section{Design}
-\subsection{Architecture}
-\subsection{Detailed design}
 \section{Implementation}
-\subsection{Test}
-\subsection{Notes}
 \subsection{Ashley Caselli}
 \begin{itemize}
 	\item Gradle configuration;
@@ -177,7 +194,6 @@ Abbiamo pensato anche a come strutturare il database utilizziamo MySQL in modo c
 	\item organizer javaFX;
 	\item organizer grafic interface with Google Maps;
 	\item server receiver: rabbitMQ connection and queue subscription;
-	
 \end{itemize}
 \subsection{Carmine Vattimo}
 \begin{itemize}
@@ -199,6 +215,7 @@ Abbiamo pensato anche a come strutturare il database utilizziamo MySQL in modo c
 	\item server receiver: message recognizing and deserialization;
 	\item player game logic in javascript, message exchange, data persist;
 \end{itemize}
+\subsection{Parti in comune}
 \section{Deployment}
 \section{Retrospection}
 \begin{itemize}
@@ -206,6 +223,5 @@ Abbiamo pensato anche a come strutturare il database utilizziamo MySQL in modo c
 	\item creare un messaggio che dopo un timer definito dall'organizzatore, che mandi dal device del team la sua posizione alla applicazione desktop per mostrare dove si trovano e l'organizzarore possa mandare un messaggio per aiutarli a trovare il prossimo punto di interesse;
 	\item 
 \end{itemize}
-
 \vspace{-30pt}
 \end{document}
