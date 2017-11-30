@@ -315,6 +315,14 @@ Esiste poi un trait ListPOIs, anch'esso serializzabile, con relativa implementaz
 In modo analogo sono modellate tutte le entità. Ad esempio: Quiz serializable e contenente 2 stringhe che rappresentano domanda e risposta corretta; Clue serializable e contenente una stringha che rappresenta l'indizio; Login e Registration che contengono i dati dell'utente, State che modella uno stato di una specifica caccia al tesoro,...
 
 \subsubsection{Creazione dei messaggi ( Caselli - Mambelli )}
+Esiste una corrispondenza quasi 1-1 tra i trait presentati nel paragrafo precedente ed i messaggi contenuti nel package core.domain.messages.\\
+E' infatti possibile inviare, appoggiandosi a RabbitMQ, la quasi totalità degli elementi del domain inserendo la defaultRepresentation di ognuno di essi nel rispettivo messaggio, a sua volta serializzato e spedito.
+L'invio di messaggi è possibile sia tra desktop e server che tra mobile e server, ma non direttamente tra desktop e mobile.
+Tutti i messaggi sono serializzabili, contengono un campo sender che rappresenta il mittente e un campo payload:String che rappresenta la defaultRepresentation dell'oggetto che è stato inviato.
+Un terzo campo messageType rappresenta il tipo di messaggio cioè quale classe è contenuta nel suo payload.
+I tipi di messaggio sono elencati nella Enumeration msgType, nello stesso file di Message.\\
+La serializzazione e deserializzazione dei messaggi avviene analogamente a quella delle classi citate nel paragrafo precedente.
+L'eccezione NoMsgDefinedException viene lanciata nel caso il msgType sia sconosciuto e, pertanto, la deserializzazione impossibile.
 
 \begin{figure}[H]
 	\centering
