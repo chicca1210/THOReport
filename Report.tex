@@ -4,6 +4,7 @@
 \usepackage {graphicx}
 \usepackage{hyperref} 
 \usepackage{float}
+\usepackage{enumitem}
 
 \title{\textbf{THO\\Treasure Hunt Organizer}}
 \author{
@@ -27,7 +28,7 @@
 \tableofcontents
 \newpage
 
-\section{Introduction}
+\section{Introduzione}
 % descrizione anche sommaria di cosa il sistema implementato realizza
 % This document contains the final work of PPS course. The goal has been
 % Il focus di tale progetto è, oltre all'effettivo sviluppo del sistema, il processo adottato per lo sviluppo in team, mettendo in pratica al meglio possibile ciò che è stato ampiamente studiato nel corso.
@@ -39,8 +40,10 @@ The desktop module is an application aimed to make as simple as possible the org
 The players which walk around during the game and need clues and information to make them able to win are helped by the web application. This app provides a map showing the position of the device and purpose to the user quiz and clue useful to reach all the points of interest of the running treasure hunt.\\
 All the data of the hunts are saved on a database hosted by a server that also has the task of managing the communication.
 
-\section{Processo di sviluppo software}
-\section{Metodologia di sviluppo}
+\section{Processo di sviluppo adottato}
+%Processo di sviluppo adottato (modalità di divisione in itinere dei task, meeting/interazioni pianificate, modalità di revisione in itinere dei task, scelta degli strumenti di test/build/continuous integration)
+
+\subsection{Metodologia di sviluppo}
 Inizialmente i membri del progetto "THO" hanno individuato la figura del Product Owner in Carmine Vattimo come autore dell'idea proposta. Per lo sviluppo del sistema THO si è adottato un approccio Agile di schedulazione divisione e verifica dei task adottando come modalità di sviluppo Scrum. 
 \\ Inizialmente abbiamo proceduto ad analizzare l'idea iniziale del progetto come segue:
 \begin{itemize}
@@ -56,11 +59,11 @@ Al termine di questa fase abbiamo poi pianificato su Trello i 5 sprint da 20 ore
 {\ [immagine del product backlog]}\\
 
 Le user story sono poi state ampliate in vari task, che durante le sprint review ogni membro del team doveva assegnarsi per poi portare a termine. \\Una sprint review iniziava raccontandoci e spiegandoci cosa, uno o più membri del gruppo, avevano fatto durante i giorni trascorsi. A fine di ogni sprint review si valutava il lavoro compiuto, si creava nuovi task, ci si divideva i nuovi compiti e si stabiliva, approssimativamente, il tempo pensato per lo svolgimento dei nuovi task assegnati. Durante queste sprint review è stato possibile monitorare l'avanzamento del progetto. Inizialmente abbiamo avuto qualche difficoltà a utilizzare la modalità di sviluppo Scrum, perchè non avevamo chiaro come si costruiva e come funzionava un Product Backlog. Qualche difficoltà durante l'avvio del progetto l'abbiamo riscontrata anche nello stimare i tempi per lo svolgimento di ogni singolo task, non sapevamo come calcolare le ore e come metterle nel Product Backlog. E' stato veramente un lavoro di squadra dove ognuno metteva in campo il proprio sapere. A volte alcuni task venivano anche svolti insieme fra alcuni membri del progetto affinchè il know-how di ogni componente potesse aumentare grazie all'altra persona.
-\section{Modalità di sviluppo}
+\subsection{Modalità di sviluppo}
 \begin{itemize}
 	\item \textbf{Scrum} utilizzato per la gestione del ciclo di sviluppo del progetto.
 \end{itemize}
-\section{Strumenti di sviluppo}
+\subsection{Strumenti di sviluppo}
 \begin{itemize}
 	\item \textbf{Trello} utilizzato come bacheca per la divisione dei compiti;
 	\item \textbf{Gradle} utilizzato come sistema per lo sviluppo del progetto;
@@ -71,31 +74,34 @@ Le user story sono poi state ampliate in vari task, che durante le sprint review
 \end{itemize}
 
 \section{Requisiti}
-\section{Requisiti funzionali}
-THO è un sistema distribuito con cui è possibile organizzare e giocare a cacce al tesoro. Utilizzando l'approccio Agile nel primo sprint abbiamo investito molte ore proprio nel raffinamento dei requisiti, ovvero abbiamo pensato come doveva funzionare il progetto e definire i compiti delle varie entità. In questo modo abbiamo evidenziato i requisiti funzionali:
+THO è un sistema software utilizzato per supportare l'organizzazione e la fase di gioco di cacce al tesoro. Tale software è composto da due sotto-componenti principali: l'organizzatore ed i giocatori partecipanti alla caccia al tesoro.\\
+Il sotto-sistema organizzatore consiste in un'applicazione desktop che permette di scegliere una città/location per il gioco tramite una mappa interattiva. Successivamente è possibile delinearne il percorso che sarà composto dai punti di interesse (tappe). Viene resa inoltre possibile la creazione di mini giochi/indovinelli che corrisponderanno alle prove da superare nel momento in cui i partecipanti raggiungeranno le varie tappe.\\
+Lato giocatori è presente un applicativo mobile che permette di visualizzare le cacce al tesoro disponibili ed iscriversi attraverso l'utilizzo di un codice univoco fornitogli precedentemente (lettura di un QR code o inserimento manuale del codice). Entrati nella modalità di gioco l'applicativo, tramite il GPS, li colloca sulla mappa di gioco e consente di avvisarli nel momento in cui viene raggiunto un determinato punto di interesse. Nel momento in cui viene raggiunto il punto di interesse gli viene sottoposto un mini gioco da superare sotto forma di quiz o indovinello da risolvere ed, una volta risolto correttamente, gli verrà fornito un indizio per permettergli di raggiungere il successivo punto di interesse.
+Durante la fase di gioco è inoltre possibile controllarne l'andamento, visualizzando le posizioni dei giocatori su una mappa ed eventualmente dare indicazioni live ai giocatori riguardanti il punto di interesse a cui sono diretti.\\
+% ci si può iscrivere finchè la caccia al tesoro è aperta ed iniziata
+\subsection{Requisiti funzionali}
 \begin{itemize}
 	\item \textbf{Lato Organizzatore} 
 	\begin{enumerate}
-		\item Creare una nuova caccia al tesoro.
-			\begin{enumerate}
-				\item [a.] Inserire il nome della nuova caccia al tesoro.
-				\item [b.] Inserire la data di inzio della nuova caccia al tesoro.
-				\item [c.] Inserire l'ora di inzio della nuova caccia al tesoro.
-				\item [d.] Inserire nella mappa il luogo di svolgimento della caccia al tesoro.
-				\item [e.] Inserire nella mappa i punti di interesse che dovranno essere ragginti dai giocatori.
-				\item [f.] Nei punti di interesse aggiungere anche il quiz da risolvere e quando l'indizio per il prossimo punto di interesse.
-				\item [g.] Cancellare/aggiungere dei punti di interesse con rispettivi indizi e quiz.
-				\item [h.] Visualizzare i punti di interesse già creati in un'elenco.
-				\item [i.] Far partire la caccia al tesoro oppure stopparla.
+		\item Creazione di una nuova caccia al tesoro
+			\begin{enumerate}[label=(\alph*)]
+				\item Inserimento del nome
+				\item Inserimento di data ed ora di inizio
+				\item Scelta del luogo di svolgimento
+				\item Aggiunta/Rimozione dei punti di interesse 
+				\item Aggiunta del relativo quiz (domanda e risposta) ed indizio per raggiungere il punto di interesse in questione
+				\item Diffusione di un codice univoco che identifica la caccia al tesoro e permette l'iscrizione agli utenti
+%				\item Gestione dello stato della caccia al tesoro (avvio)
 			\end{enumerate}
-		\item Caricare una caccia al tesoro già creata.
-		\begin{enumerate}
-			\item [a.] Visualizzare il codice della caccia al tesoro.
-			\item [b.] Visualizzare i punti di interesse già creati in un'elenco.
-			\item [c.] Cancellare/aggiungere dei punti di interesse con rispettivi indizzi e quiz.
-			\item [d.] Aprire le iscrizioni a una caccia al tesoro e avviarla.
+		\item Caricamento di una caccia al tesoro preesistente
+		\begin{enumerate}[label=(\alph*)]
+			\item Visualizzazione/Gestione dei punti di interesse già presenti con rispettivi indizi e quiz
+			\item Visualizzazione del codice univoco della caccia al tesoro
 		\end{enumerate}
-		\item Cancellare Una caccia al tesoro già creata.
+	\item Gestione di una caccia al tesoro
+		\begin{enumerate}[label=(\alph*)]
+			\item 
+		\end{enumerate}
 	\end{enumerate}
 	\item \textbf{Lato Giocatore}
 		\begin{enumerate}
@@ -114,15 +120,15 @@ THO è un sistema distribuito con cui è possibile organizzare e giocare a cacce
 				\item [e.] Ricevere gli indizi per raggiungere la nuova caccia al tesoro.
 			\end{enumerate}
 		\end{enumerate} 
-	\item \textbf{Lato Server}
-		\begin{enumerate}
-			\item Il server deve gestire le operazioni sul database.
-			\item Il server deve gestire i messaggi in ingresso e inviare le risposte.
-		\end{enumerate}
+	%\item \textbf{Lato Server}
+	%	\begin{enumerate}
+	%		\item Il server deve gestire le operazioni sul database.
+	%		\item Il server deve gestire i messaggi in ingresso e inviare le risposte.
+	%	\end{enumerate}
 \end{itemize}
 
 
-\section{Requisiti non funzionali}
+\subsection{Requisiti non funzionali}
 I requisiti non funzionali sono stati identificati come segue:
 \begin{itemize}
 	\item Sia la parte desktop e l'applicazione mobile devono essere user-friendly.
@@ -134,6 +140,7 @@ I requisiti non funzionali sono stati identificati come segue:
 
 
 \section{Design architetturale}
+%Design architetturale (pattern architetturali usati, componenti del sistema distribuito, scelte tecnologiche cruciali ai fini architetturali -- corredato da pochi ma efficaci diagrammi)
 \subsection{Desktop}
 \subsubsection{Model-View-Controller}
 \subsubsection{Observer}
@@ -145,6 +152,7 @@ I requisiti non funzionali sono stati identificati come segue:
 \subsubsection{Database}
 
 \section{Design di dettaglio}
+%Design di dettaglio (pattern di progettazione, organizzazione del codice -- corredato da pochi ma efficaci diagrammi)
 L'applicazione THO, ha lo scopo di gestire le cacce al tesoro create da un organizzatore che dopo aver scelto una location/città in cui svolgere la gara, aver scelto i punti di interesse, aver inserito i relativi indovinelli nei POI e aver fatto iscrivere i team a una caccia ben specifica potrà far partire la gara.
 \\Abbiamo deciso che questa applicazione abbia una visione desktop e una mobile.
 L’idea di base prevede due macro-sistemi:
@@ -200,7 +208,7 @@ Abbiamo pensato anche a come strutturare il database utilizziamo MySQL in modo c
 	\caption{RabbitMQ e Database}
 \end{figure}
 
-\section{Implementation}
+\section{Implementazione}
 \subsection{Ashley Caselli}
 \begin{itemize}
 	\item Configurazione di Gradle e Travis CI;
@@ -329,8 +337,9 @@ L'eccezione NoMsgDefinedException viene lanciata nel caso il msgType sia sconosc
 	\caption{Trait e classi Message}
 \end{figure}
 
-\section{Deployment}
-\section{Retrospection}
+%\section{Deployment}
+\section{Retrospettiva}
+%Restrospettiva (descrizione finale dettagliata dell'andamento dello sviluppo, del backlog, delle iterazioni; commenti finali)
 \begin{itemize}
 	\item creare per i giocatori che parteciperanno a team un metodo per gestire loro più device che però si riferiscano al loro team;
 	\item creare un messaggio che dopo un timer definito dall'organizzatore, che mandi dal device del team la sua posizione alla applicazione desktop per mostrare dove si trovano e l'organizzarore possa mandare un messaggio per aiutarli a trovare il prossimo punto di interesse;
