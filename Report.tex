@@ -1,5 +1,5 @@
 % !TeX spellcheck = it_IT
-\documentclass[12pt, english]{article}
+\documentclass[12pt, italian]{article}
 \usepackage[utf8]{inputenc}
 \usepackage {graphicx}
 \usepackage{hyperref} 
@@ -76,52 +76,82 @@ THO è un sistema distribuito con cui è possibile organizzare e giocare a cacce
 \begin{itemize}
 	\item \textbf{Lato Organizzatore} 
 	\begin{enumerate}
-		\item Creare una nuova caccia al tesoro
+		\item Creare una nuova caccia al tesoro.
 			\begin{enumerate}
-				\item [a.] Inserire il nome della nuova caccia al tesoro
-				\item [b.] Inserire la data di inzio della nuova caccia al tesoro
-				\item [c.] Inserire l'ora di inzio della nuova caccia al tesoro
-				\item [d.] Inserire nella mappa il luogo di svolgimento della caccia al tesoro
-				\item [e.] Inserire nella mappa i punti di interesse che dovranno essere ragginti dai giocatori
-				\item [f.] Nei punti di interesse aggiungere anche il quiz da risolvere e quando l'indizio per il prossimo punto di interesse
-				\item [g.] Cancellare/aggiungere dei punti di interesse con rispettivi indizi e quiz
-				\item [h.] Visualizzare i punti di interesse già creati in un'elenco
-				\item [i.] Far partire la caccia al tesoro oppure stopparla
+				\item [a.] Inserire il nome della nuova caccia al tesoro.
+				\item [b.] Inserire la data di inzio della nuova caccia al tesoro.
+				\item [c.] Inserire l'ora di inzio della nuova caccia al tesoro.
+				\item [d.] Inserire nella mappa il luogo di svolgimento della caccia al tesoro.
+				\item [e.] Inserire nella mappa i punti di interesse che dovranno essere ragginti dai giocatori.
+				\item [f.] Nei punti di interesse aggiungere anche il quiz da risolvere e quando l'indizio per il prossimo punto di interesse.
+				\item [g.] Cancellare/aggiungere dei punti di interesse con rispettivi indizi e quiz.
+				\item [h.] Visualizzare i punti di interesse già creati in un'elenco.
+				\item [i.] Far partire la caccia al tesoro oppure stopparla.
 			\end{enumerate}
-		\item Caricare una caccia al tesoro già creata
+		\item Caricare una caccia al tesoro già creata.
 		\begin{enumerate}
-			\item [a.] Visualizzare il codice della caccia al tesoro
-			\item [b.] Visualizzare i punti di interesse già creati in un'elenco
-			\item [c.] Cancellare/aggiungere dei punti di interesse con rispettivi indizzi e quiz
-			\item [d.] Aprire le iscrizioni a una caccia al tesoro e avviarla
+			\item [a.] Visualizzare il codice della caccia al tesoro.
+			\item [b.] Visualizzare i punti di interesse già creati in un'elenco.
+			\item [c.] Cancellare/aggiungere dei punti di interesse con rispettivi indizzi e quiz.
+			\item [d.] Aprire le iscrizioni a una caccia al tesoro e avviarla.
 		\end{enumerate}
-		\item Cancellare Una caccia al tesoro già creata
+		\item Cancellare Una caccia al tesoro già creata.
 	\end{enumerate}
 	\item \textbf{Lato Giocatore}
 		\begin{enumerate}
-			\item Creare un account
+			\item Creare un account.
 			\begin{enumerate}
-				\item [a.] Creare il nome del gruppo
-				\item [b.] Creare la password del gruppo
-				\item [c.] Confermare la nuova password del gruppo
+				\item [a.] Creare il nome del gruppo.
+				\item [b.] Creare la password del gruppo.
+				\item [c.] Confermare la nuova password del gruppo.
 			\end{enumerate}
-			\item Fare login
+			\item Accedere tramite login del gruppo.
 			\begin{enumerate}
-				\item [a.] Inserire il nome del gruppo
-				\item [b.] Inserire la password del gruppo
+				\item [a.] Visualizzare la lista delle cacce al tesoro con iscrizioni aperte.
+				\item [b.] Scelta di una caccia al tesoro.
+				\item [c.] Visualizzare la mappa della caccia al tesoro.
+				\item [d.] Riceve i quiz.
+				\item [e.] Ricevere gli indizi per raggiungere la nuova caccia al tesoro.
 			\end{enumerate}
 		\end{enumerate} 
 	\item \textbf{Lato Server}
 		\begin{enumerate}
-			\item server
+			\item Il server deve gestire le operazioni sul database.
+			\item Il server deve gestire i messaggi in ingresso e inviare le risposte.
 		\end{enumerate}
 \end{itemize}
-L’idea di base prevede due macro-sistemi:\\
+
+
+\section{Requisiti non funzionali}
+I requisiti non funzionali sono stati identificati come segue:
+\begin{itemize}
+	\item Sia la parte desktop e l'applicazione mobile devono essere user-friendly.
+	\item La creazione di una nuova caccia al tesoro, con i rispettivi punti di interesse, quiz e indizi devono essere salvati nel database.
+	\item Quando un giocatore arriva a un punto di interesse gli deve arrivare il quiz, se risponde correttamente a un quiz gli deve essere mandato l'indizio del punto di interesse successivo.
+	\item Quando un giocatore finisce la caccia al tesoro gli verrà notificato al suo dispositivo e verrà notificato anche all'organizzatore.
+\end{itemize}
+%Rabbit Usage: As a possible counter-effect is that adding RabbitMQ in the middle, you will add some latency to the solution. However you have the possibility to gain in terms of reliability, flexibility, scalability,...
+
+
+\section{Design architetturale}
+\subsection{Desktop}
+\subsubsection{Model-View-Controller}
+\subsubsection{Observer}
+\subsection{App Mobile}
+\subsubsection{App Ibrida}
+\subsection{Server}
+\subsubsection{Middleware}
+\subsubsection{Data Access Layer}
+\subsubsection{Database}
+
+\section{Design di dettaglio}
+L'applicazione THO, ha lo scopo di gestire le cacce al tesoro create da un organizzatore che dopo aver scelto una location/città in cui svolgere la gara, aver scelto i punti di interesse, aver inserito i relativi indovinelli nei POI e aver fatto iscrivere i team a una caccia ben specifica potrà far partire la gara.
+\\Abbiamo deciso che questa applicazione abbia una visione desktop e una mobile.
+L’idea di base prevede due macro-sistemi:
 \begin{itemize}
 	\item L'organizzatore
-	\item I team partecipanti alla caccia al tesoro
+	\item I giocatori partecipanti alla caccia al tesoro
 \end{itemize}
-
 \subsection{Organizzatore}
 L’organizzazione di una caccia al tesoro viene fatta tramite un’applicazione desktop che permette all'organizzatore di scegliere una città/location per il gioco tramite una mappa. Attraverso tale mappa ha la possibilità di impostare i punti di interesse che corrisponderanno alle varie tappe del gioco. Ad ogni punto di interesse è associato un mini gioco/indovinello che sarà creato e poi fornito ad ogni team che durante la caccia raggiungerà tale punto. La corretta risoluzione del quiz consentirà al team di avanzare nel gioco.\\
 L'organizzatore, a gioco avviato, ha la possibilità di controllarne l'andamento ed eventualmente di dare indicazioni in tempo reale ai team per aiutarli ad arrivare al successivo punto di interesse oppure di inviare un messaggio di vincita della caccia al tesoro da parte di un team.\\
@@ -143,45 +173,32 @@ L’organizzatore non potrà modificare la caccia al tesoro se è già in svolgi
 
 \subsection{Giocatore}
 Il sistema lato giocatori consiste nello sviluppo di un'applicazione mobile, che attraverso il GPS li colloca sulla mappa di gioco e permette loro di essere avvisati nel momento in cui raggiungono un determinato punto di interesse. Il raggiungimento di un punto di interesse permetterà loro di ricevere il quiz associato a tale punto e, successivamente alla corretta risoluzione del quiz, anche il nuovo indizio che gli consentirà di procedere nel gioco.
+\subsection{Desktop}
+L'applicazione desktop può essere utilizzata solo dall'organizzatore, 
+\subsection{App Mobile}
+L'applicazione mobile può essere utilizzata da tutti i giocatori che si sono loggati in una caccia al tesoro,
+\subsubsection{Cordova}
+L'applicazione mobile l'abbiamo sviluppata con Apache Cordova, abbiamo deciso questa soluzione perchè ci è sembrata la più funzionale per quello che dovevamo fare noi. Apache Cordova è un framework per lo sviluppo di applicazioni sia web che mobile, .
+\subsection{Organizzazione del codice}
 
-\section{Requisiti non funzionali}
-
-%Rabbit Usage: As a possible counter-effect is that adding RabbitMQ in the middle, you will add some latency to the solution. However you have the possibility to gain in terms of reliability, flexibility, scalability,...
-
-\section{Analysis}
-L'applicazione THO, ha lo scopo di gestire le cacce al tesoro create da un organizzatore che dopo aver scelto una location/città in cui svolgere la gara, aver scelto i punti di interesse, aver inserito i relativi indovinelli nei POI e aver fatto iscrivere i team a una caccia ben specifica potrà far partire la gara.
-\\Abbiamo deciso che questa applicazione abbia una visione desktop e una mobile.
-\\Abbiamo deciso di utilizzare RabbitMQ come broker per scambiare i messaggi. Questo messagge broker funziona come un ufficio di posta. Ci sono due entità producer e consumer, la prima manda alla seconda un messaggio e la seconda lo riceve. Il messaggio viene conservato prima di essere spedito in un buffer. Abbiamo scelto RabbitMQ perchè ci garantisce:
+\subsection{Server}
+\subsubsection{Middleware}
+Abbiamo deciso di utilizzre RabbitMQ come broker per scambiare i messaggi. Questo messagge broker funziona come un ufficio di posta. Ci sono due entità producer e consumer, la prima manda alla seconda un messaggio e la seconda lo riceve. Il messaggio viene conservato prima di essere spedito in un buffer. Abbiamo scelto RabbitMQ perchè ci garantisce:
 \begin{itemize}
-	\item che il messaggio sia stato inviato e che sia ricevuto dal consumer
-	\item che i messaggi siano inviati in ordine
-	\item che se un messaggio non è riuscito ad arrivare al consumer torna al producer, affinchè il producer non lo riesce a rinviare ed a essere sicuro che il consumer lo abbia ricevuto
+	\item che il messaggio sia stato inviato e che sia ricevuto dal consumer.
+	\item che i messaggi siano inviati in ordine.
+	\item che se un messaggio non è riuscito ad arrivare al consumer torna al producer, affinchè il producer non lo riesce a rinviare ed a essere sicuro che il consumer lo abbia ricevuto.
 \end{itemize}
+Il producer crea il messaggio e lo invia al Message Broker che lo manda al consumer. Il consumer aspetta che gli arrivi un messaggio per poi elaborarli.
+
+\subsubsection{Database}
+Abbiamo pensato anche a come strutturare il database utilizziamo MySQL in modo centralizzato, che memorizza solo i dati permanenti, ovvero un unico DB con all'interno tutte le varie informazioni sugli utenti che partecipano alla caccia al tesoro, i punti d'interesse ecc. L'organizzatore è l'utente che crea una caccia al tesoro aggiungendo i punti d'interesse, i vari quiz e gli indovinelli/coordinate dei POI. Abbiamo pensato anche che l'organizzatore non deve essere lui a leggere/scrivere messaggi con i giocatori, ma questo lo dovrà fare una terza entità. Questa terza entità dovrà occuparsi di ricevere i messaggi leggerli e scriverli nel DB, RabbitMQ è un broker solo per lo scambio di messaggi non legge o scrive messaggi. Questa terza entità  sarà il conduttore del gioco. Abbiamo anche pensato al caso sfortunato che il dispositivo del giocatore che usa durante la caccia al tesoro non funzioni più, in questo caso non sarebbe un problema perchè nel DB il giocatore si è registrato con il suo ID e se il dispositivo non dovesse andare più, potrebbe comunque accedere al database con un altro dispositivo utilizzando l'ID scelto.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{img/rabbit.png}
 	\caption{RabbitMQ e Database}
 \end{figure}
-
-Abbiamo pensato anche a come strutturare il database utilizziamo MySQL in modo centralizzato, che memorizza solo i dati permanenti, ovvero un unico DB con all'interno tutte le varie informazioni sugli utenti che partecipano alla caccia al tesoro, i punti d'interesse ecc. L'organizzatore è l'utente che crea una caccia al tesoro aggiungendo i punti d'interesse, i vari quiz e gli indovinelli/coordinate dei POI. Abbiamo pensato anche che l'organizzatore non deve essere lui a leggere/scrivere messaggi con i giocatori, ma questo lo dovrà fare una terza entità. Questa terza entità dovrà occuparsi di ricevere i messaggi leggerli e scriverli nel DB, RabbitMQ è un broker solo per lo scambio di messaggi non legge o scrive messaggi. Questa terza entità  sarà il conduttore del gioco. Abbiamo anche pensato al caso sfortunato che il dispositivo del giocatore che usa durante la caccia al tesoro non funzioni più, in questo caso non sarebbe un problema perchè nel DB il giocatore si è registrato con il suo ID e se il dispositivo non dovesse andare più, potrebbe comunque accedere al database con un altro dispositivo utilizzando l'ID scelto.
-
-\section{Design architetturale}
-\subsection{Desktop}
-\subsubsection{Model-View-Controller}
-\subsubsection{Observer}
-\subsection{App Mobile}
-\subsubsection{App Ibrida}
-\subsection{Server}
-\subsubsection{Middleware}
-\subsubsection{Data Access Layer}
-\subsubsection{Database}
-
-\section{Design di dettaglio}
-\subsection{Organizzazione del codice}
-\subsection{Server}
-\subsubsection{Middleware}
-\subsubsection{Database}
 
 \section{Implementation}
 \subsection{Ashley Caselli}
