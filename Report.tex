@@ -227,44 +227,101 @@ Abbiamo pensato anche a come strutturare il database utilizziamo MySQL in modo c
 \subsection{Giacomo Mambelli}
 Nel progetto Treasure Hunt Organizer, Giacomo Mambelli si è occupato principalmente delle fasi di design e implementazione di:
 \begin{itemize}
-	\item Entità principali comuni a tutti i moduli software in collaborazione con AC
-	\item Scambio dei messaggi in collaborazione con AC
+	\item Entità principali comuni a tutti i moduli software in collaborazione con Ashley Caselli
+	\item Creazione dei messaggi in collaborazione con Ashley Caselli
 	\item Applicazione mobile
+	\item Data access layer - Receiver
+	\item Organizer message exchange
 \end{itemize}
 \subsubsection{Applicazione mobile}
 Il codice citato in questa sezione è contenuto nel package th-player.
 L'applicazione è stata sviluppata come app ibrida, il framework utilizzato è Apache Cordova.
 Tale software è attualmente fruibile tramite browser e android apk.
+Le schermate principali, presentate nell'immagine seguente, sono: Scelta login/registrazione, Login, Registrazione, Scelta caccia al tesoro, Inserimento codice di accesso, Gioco, Pausa.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/flusso01.png}
+	\caption{Schermate app Android}
+\end{figure}
 
 \subsubsection*{Login}
 Alla prima apertura dell'applicazione l'utente viene guidato dall'interfaccia grafica nella creazione di un nuovo account il quale si concretizza in nome e password. Eseguita la registrazione, il login è automatico.
 E' possibile effettuare il login, partendo dalla schermata principale della app, in un account precedentemente creato.
-L'utente loggiato può fare logout cliccando sul nome utente che viene visualizzato nella bottom-bar della applicazione.
-Per mantenere le informazioni sull'ultimo utente che ha effettuato l'accesso sono state utilizzate le local storage di HTML, che garantiscono la persistenza di piccole quantità di informazione sul device. Il logout comporta l'abbandono automatico della caccia al tesoro a cui l'utente sta partecipando (se esiste) con la relativa cancellazione dei dati persistenti; la rimozione di tutti i dati relativi all'utente salvati in fase di login.
+L'utente loggato può fare logout cliccando sul nome utente che viene visualizzato nella bottom-bar della applicazione.
+Per mantenere le informazioni sull'ultimo utente che ha effettuato l'accesso sono state utilizzate le local storage di HTML, che garantiscono la persistenza di piccole quantità di informazione sul device. Il logout comporta l'abbandono automatico della caccia al tesoro a cui l'utente sta partecipando (se esiste) con la relativa cancellazione dei dati persistenti e la rimozione di tutti i dati relativi all'utente salvati in fase di login.
 Il controllo sulla validità dei dati inseriti nella form di login, così come il controllo sull'esistenza di un account con lo stesso username in fase di registrazione è stato implementato come scambio di messaggi con il server.
+Viene inviato un LoginMsg (o RegistrationMsg) in formato testuale Json contenente i username e password alla coda opportuna di RabbitMQ; l'applicazione server legge il messaggio dalla coda di RabbitMQ e chiama l'esecuzione delle verifiche sul database. La risposta, affermativa o negativa, compie il percorso inverso.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/diagram03.png}
+	\caption{Login, visione del sistema}
+\end{figure}
 
 \subsubsection*{Mappa}
 Per fornire precise informazioni al giocatore rispetto alla sua posizione si è deciso di incorporare una mappa all'interno della schermata di gioco.
-La mappa scelta è quella di Google. Google Maps fornisce infatti API facilmente utilizzabili dalla maggior parte di sistemi software. In particolare è possibile richiamare le API Google tramite codice JavaScript importando uno script.
-L'applicazione richiede pertanto le autorizzazioni necessarie per acquisire la posizione GPS del device. E stato necessario specificare nel file Manifest di Android l'utilizzo di tali dati da parte della app. L'utente dovrˆ accettare (in modo differente a seconda della piattaforma che utilizza) di fornire i dati relativi alla posizione per poter giocare correttamente.
+La mappa scelta è quella di Google. Google Maps fornisce infatti API utilizzabili dalla maggior parte di sistemi software. In particolare è possibile richiamare le API Google tramite codice JavaScript importando uno script.
+L'applicazione richiede pertanto le autorizzazioni necessarie per acquisire la posizione GPS del device. E stato necessario specificare nel file Manifest di Android l'utilizzo di tali dati da parte della app. L'utente dovrà accettare (in modo differente a seconda della piattaforma che utilizza) di fornire i dati relativi alla posizione per poter giocare correttamente.
 
 \subsubsection*{Scambio Messaggi}
 Lo scambio di messaggi con il server è stato realizzato sfruttando il middleware RabbitMQ.
 Lato device è stato utilizzato il protocollo STOMP tramite WebSocket.
 Il device apre una connessione al server al momento dell'avvio e ripristina la connessione ogni volta che essa viene persa.
 Per evitare problemi di compatibilità con i vari browser si è deciso di aggiungere un ulteriore strato di WebSocket emulate con il plugin SockJ che è in grado di funzionare anche su browser che non supportano nativamente le WebSocket.
-La connessione viene aperta dalla funzione connect() che imposta l'heartbeat a zero poichŽ non supportato dal plugin SockJS e successivamente contatta il server all'url specificato fornendo credenziali e callback.
+La connessione viene aperta dalla funzione connect() che imposta l'heartbeat a zero poiché non supportato dal plugin SockJS e successivamente contatta il server all'url specificato fornendo credenziali e callback.
 I messaggi vengono inviati tramite una funzione denominata send() che comunica al server la queue alla quale è indirizzato il messaggio; una queue temporanea che viene creata al momento dell'invio tramite la quale ricevere la risposta ed il messaggio in formato testuale (Json) ricevuto in ingresso.
 La funzione onReceive() è delegata alla ricezione dei messaggi sulla queue temporanea creata in fase di invio. Al suo interno il riconoscimento del tipo di messaggio basata sul campo messageType e la chiamata alla funzione corretta per la gestione dei vai tipi.
 Tutti i messaggi sono in formato Json e devono pertanto essere deserializzati per poter essere sfruttati.
-\begin{itemize}
-	\item core: entities realizarion
-	\item core: messages with serialization/deserialization;
-	\item organizer: message exchange;
-	\item server receiver: message recognizing and deserialization;
-	\item player game logic in javascript, message exchange, data persist;
-\end{itemize}
+
+\subsubsection{Data access layer - Receiver}
+Il data access layer necessita di un modulo per la ricezione dei messaggi recapitati da RabbitMQ. Tale modulo si concretizza in una classe denominata Receiver il cui compito è ricevere i messaggi, interpretarli e chiamare le corrette operazioni sul database attraverso le altre classi del data access layer.
+
+\subsubsection*{Connection and queue declare}
+La classe Receiver, alla chiamata del metodo startRecv(), apre una connessione con RabbitMQ e crea 3 code:
+la prima sulla quale il receiver ascolta i messaggi in arrivo dall'organizzatore e sul quale inoltra le risposte;
+la seconda sulla quale ascolta i messaggi in arrivo dai giocatori (la risposta viene inviata su un canale temporaneo creato dal mittente);
+la terza è una coda dedicata al messaggio di fine caccia al tesoro sulla quale tutti i giocatori ascoltano (e nessuno rimuove il messaggio).
+
+\subsubsection*{Message recognition and Deserialization}
+Ogni canale sul quale il receiver deve ricevere messaggi gestisce le stringhe in ingresso trasformandole in un istanza di Message con una chiamata al metodo .as[Message] della libreria Json Play che è in grado di deserializzare il messaggio utilizzando la variabile implicita reads definita all'interno dell'oggetto Message tramite la chiamata a defaultRepresentation. Ogni istanza di Message contiene un campo messageType che viene utilizzato per deserializzare il contenuto del messaggio portandolo al tipo originale chiamando ancora .as[messageType].
+Per ogni tipo di messaggio ricevuto vengono chiamate le opportune funzione di lettura/aggiornamento/cancellazione del database.
+La risposta viene inviata con una chiamata basicPublish() sull'opportuna coda.
+
+\subsubsection{Organizer message exchange}
 \subsection{Parti in comune}
+
+\subsubsection{Entità principali ( Caselli - Mambelli )}
+Questa sezione illustra quali elementi di una caccia al tesoro si è deciso di modellare.
+Le varie classi rappresentanti entità del dominio applicativo sono state collocate nel package core.domanin, importato sia dal modulo server che da quello desktop.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/diagram01.png}
+	\caption{Trait a classi principali}
+\end{figure}
+
+\subsubsection*{Trait Serializable e Positionable}
+Serializable e Positionable sono i due trai fondamentali del package.
+Le classi che estendono da Serializable implementano il metodo defaultRepresentation: String che restituisce la rappresentazione testuale, in formato Json, delle istanze della classe stessa.\\
+Positionable modella il concetto di entità con posizione, cioè che contiene al suo interno una Position. PositionImpl implementa il trait Position e di conseguenza contiene latitude e longitude. Il trait Position è Serializable.
+
+\subsubsection*{Point Of Interest}
+L'elemento principale del dominio applicativo è il punto di interesse (POI), inteso come "tappa" della caccia al tesoro.
+Il trait POI prevede getter/setter per: ID identificativo numerico del punto, name Nome del punto, treasureHuntID identificativo numerico della caccia al tesoro di appartenenza, clue l'indizio utile per il raggiungimento del POI, e quiz il Quiz che deve essere risolto per avere accesso all'indizio.
+La nostra implementazione del trait (POIImpl), essendo il trait POI estensione di Serializable, prevede una implementazione attraverso una implicit val del metodo defaultRepresentation. La deserializzazione è affidata all'object POI.
+POI è, ovviamente, anche Positionable.\\
+Esiste poi un trait ListPOIs, anch'esso serializzabile, con relativa implementazione che modella un elenco di POI inteso come tutti i punti di una caccia al tesoro.\\
+In modo analogo sono modellate tutte le entità. Ad esempio: Quiz serializable e contenente 2 stringhe che rappresentano domanda e risposta corretta; Clue serializable e contenente una stringha che rappresenta l'indizio; Login e Registration che contengono i dati dell'utente, State che modella uno stato di una specifica caccia al tesoro,...
+
+\subsubsection{Creazione dei messaggi ( Caselli - Mambelli )}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/diagram02.png}
+	\caption{Trait e classi Message}
+\end{figure}
+
 \section{Deployment}
 \section{Retrospection}
 \begin{itemize}
