@@ -137,13 +137,19 @@ I requisiti non funzionali sono stati identificati come segue:
 In questa sezione descriviamo le scelte effettuate a livello architetturale. Quindi la struttura del progetto e l'idea è dietro ad ogni modulo di quest'ultimo.\\
 Sono stati identificati 3 moduli: Desktop, inteso come software dell'organizzatore di cacce al tesoro; Mobile inteso come applicazione dei utilizzata dai partecipanti; Server, cioè modulo demandato allo scambio dei messaggi e alla persistenza.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{img/architetturale01.png}
+	\caption{Visione d'insieme del sistema}
+\end{figure}
+
 \subsection{Desktop}
 Il modulo desktop è stato pensato come software fruibile esclusivamente da computer. Un paradigma ad oggetti/funzionale è stato scelto tenendo conto del tipo di applicativo. Tale modulo  comunica esclusivamente con il modulo Server, principalmente per inviare le nuove entità create, come una nuova caccia al tesoro, un nuovo POI,...
 \subsubsection{Model-View-Controller}
 L'organizzazione del modulo desktop è model view controller, per consentire leggibilità, manutenibilità del codice, ma soprattutto per consentire ai vari membri del team di lavorare contemporaneamente ad elementi distinti dello stesso software.
 Il model si occupa dell'invio dei messaggi al server e della ricezione della risposta.
 \subsubsection*{Observer}
-E' il pattern scelto per la comunicazione model->view e model->controller.
+E' il pattern scelto per la comunicazione model-view e model-controller.
 
 \subsection{App Mobile}
 Per l'applicazione mobile, che non prevede grafica elaborata, ne calcolo oneroso, si è pensato di optare per una app ibrida.
