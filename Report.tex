@@ -134,15 +134,31 @@ I requisiti non funzionali sono stati identificati come segue:
 
 
 \section{Design architetturale}
+In questa sezione descriviamo le scelte effettuate a livello architetturale. Quindi la struttura del progetto e l'idea è dietro ad ogni modulo di quest'ultimo.\\
+Sono stati identificati 3 moduli: Desktop, inteso come software dell'organizzatore di cacce al tesoro; Mobile inteso come applicazione dei utilizzata dai partecipanti; Server, cioè modulo demandato allo scambio dei messaggi e alla persistenza.
+
 \subsection{Desktop}
+Il modulo desktop è stato pensato come software fruibile esclusivamente da computer. Un paradigma ad oggetti/funzionale è stato scelto tenendo conto del tipo di applicativo. Tale modulo  comunica esclusivamente con il modulo Server, principalmente per inviare le nuove entità create, come una nuova caccia al tesoro, un nuovo POI,...
 \subsubsection{Model-View-Controller}
-\subsubsection{Observer}
+L'organizzazione del modulo desktop è model view controller, per consentire leggibilità, manutenibilità del codice, ma soprattutto per consentire ai vari membri del team di lavorare contemporaneamente ad elementi distinti dello stesso software.
+Il model si occupa dell'invio dei messaggi al server e della ricezione della risposta.
+\subsubsection*{Observer}
+E' il pattern scelto per la comunicazione model->view e model->controller.
+
 \subsection{App Mobile}
-\subsubsection{App Ibrida}
+Per l'applicazione mobile, che non prevede grafica elaborata, ne calcolo oneroso, si è pensato di optare per una app ibrida.
+Tale scelta comporta minori tempi di sviluppo, possibilità di eseguire il codice su piattaforme differenti e la possibilità di realizzare una interfaccia grafica piacevole tramite fogli di stile.
+I possibili contro di tale scelta sono: l'accesso ai sensori del dispositivo potrebbe risultare difficile o impossibile; Le prestazioni potrebbero risultare basse.
+il modulo mobile comunica con il Server principalmente per fornire i propri progressi in fase di gioco e per ricevere le informazioni utili al proseguimento della caccia al tesoro.
+
 \subsection{Server}
+Il modulo server si occupa della ricezione di messaggi, degli accessi al database e dell'invio delle risposte ai messaggi ricevuti. Riceve messaggi sia dal Desktop che dal Mobile e risponde ad entrambi.
 \subsubsection{Middleware}
+Per garantire un corretto funzionamento dello scambio messaggi la scelta più ragionevole sembra quella dell'adozione di un middleware che si occupi di assicurare che ogni messaggio venga recapitato e che ogni device comunichi in modo indipendente dagli altri.
 \subsubsection{Data Access Layer}
+Il data access layer è inteso come il software che, in esecuzione sul server, si occupa di ricevere i messaggi recapitati dal middleware, effettuare le opportune elaborazioni (principalmente lettura e scrittura dal database) e formulare le risposte.
 \subsubsection{Database}
+Il database è la parte di persistenza dell'intero sistema e memorizza le entità esistenti e l'andamento delle cacce al tesoro.
 
 \section{Design di dettaglio}
 L'applicazione THO, ha lo scopo di gestire le cacce al tesoro create da un organizzatore che dopo aver scelto una location/città in cui svolgere la gara, aver scelto i punti di interesse, aver inserito i relativi indovinelli nei POI e aver fatto iscrivere i team a una caccia ben specifica potrà far partire la gara.
