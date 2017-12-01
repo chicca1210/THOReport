@@ -243,13 +243,31 @@ Abbiamo pensato anche a come strutturare il database utilizziamo MySQL in modo c
 	\item Creazione dei messaggi in collaborazione con Giacomo Mambelli
 \end{itemize}
 \subsection{Carmine Vattimo}
+Il mio contributo al progetto THO (Treasure Hunt Organizer) ha riguardato principalmente i seguenti aspetti:
 \begin{itemize}
-	\item server installation;
-	\item database mySQL set-up;
-	\item database operations crud;
-	\item server receiver: database comunication for each kind of message;
-	\item organizer Google Maps Markers;
+	\item Creazione dell'Istanza del Server Amazon EC2 Micro
+	\item Installazione di RabbitMQ: Middleware per scambio di messaggi
+	\item Creazione dell'istanza del database MySQL su Amazon RDS
+	\item Gestione delle operazioni sul DB
+	\item Data Access Layer: Comunicazione con il DB per tutti i tipi di messaggi
+	\item Gestione dei Marker sulla mappa dell'Organizer
 \end{itemize}
+\subsubsection{Istanza del Server Amazon EC2 Micro}
+Per la scelta del server da utilizzare, abbiamo preferito appoggiarci su un server online gratuito, messoci a disposizione da Amazon Web Services, piuttosto che utilizzare un server in locale.\\
+Amazon Elastic Compute Cloud (Amazon EC2) è un servizio Web che fornisce capacità di elaborazione sicura e scalabile nel cloud. È concepito per rendere più semplice il cloud computing su scala Web per gli sviluppatori (in prova gratuita per un 1 anno, con pacchetto "Micro").\\
+Questo server ospita sia il Data Access Layer, che comunica direttamente con il DB, che il middleware da noi scelto, di cui si parla nella prossima sezione.
+\subsubsection{RabbitMQ: Middleware per scambio di messaggi}
+Per far si che i vari moduli comunicassero tra loro, abbiamo scelto di utilizzare un middleware, che si occupasse di gestire gli scambi di messaggi tra giocatori, organizzatore e DB. La nostra scelta è ricaduta su RabbitMQ, vista anche la piena integrazione con AWS, che ha fatto si che la sua installazione fosse molto semplice.
+RabbitMQ è il più diffuso Message Broker open source. Leggero e facile da eseguire sul cloud. Supporta diversi protocolli di messaggistica. \\
+RabbitMQ gira su diversi ambienti cloud e sistemi operativi, e mette a disposizione una larga scala di strumenti di sviluppo per molti dei più popolari linguaggi.
+\subsubsection{Istanza del Database MySQL: Amazon RDS}
+Dovendo scegliere un DB che fosse accessibile dal nostro server online, siamo tornati a bussare alle porte di AWS, e abbiamo trovato un servizio fatto ad hoc per la nostra necessità.\\
+Amazon Relational Database Service (Amazon RDS) semplifica configurazione, utilizzo e ridimensionamento di database relazionali nel cloud. Questo servizio fornisce una capacità ridimensionabile a un costo conveniente, automatizzando al tempo stesso le attività di amministrazione del database più dispendiose in termini di tempo, quali il provisioning di hardware, l'impostazione di database, gli aggiornamenti e i backup. Consente di concentrarsi sulle proprie applicazioni per fornire le prestazioni ottimali, la disponibilità elevata, la sicurezza e la compatibilità di cui hanno bisogno.
+
+Amazon RDS è disponibile in diversi tipi di istanza database, ottimizzati per la memoria, prestazioni o I/O, e permette di scegliere tra sei motori di database comuni, fra cui Amazon Aurora, PostgreSQL, MySQL, MariaDB, Oracle e Microsoft SQL Server. Si può utilizzare l'AWS Database Migration Service per migrare o replicare facilmente database esistenti verso Amazon RDS.
+
+La nostra scelta è stata, come indicato nel titolo, il motore MySQL.
+
 \subsection{Francesca Tassinari}
 \begin{itemize}
 	\item player HTML;
