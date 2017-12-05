@@ -57,14 +57,13 @@ Inizialmente i membri del progetto "THO" hanno individuato la figura del Product
 
 Al termine di questa fase abbiamo poi pianificato su Trello i 5 sprint da 20 ore, in cui a fine di ognuno di essi, abbiamo fatto una sprint review.\\Dopo aver svolto l'analisi del problema abbiamo creato il Product Backlog composto da varie user story, suddivise nei 5 sprint in ordine di priorità. \\
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=1\textwidth]{img/backlog01.png}
-	\caption{Product Backlog}
-\end{figure}
+{\ [immagine del product backlog]}\\
 
 Le user story sono poi state ampliate in vari task, che durante le sprint review ogni membro del team doveva assegnarsi per poi portare a termine. \\Una sprint review iniziava raccontandoci e spiegandoci cosa, uno o più membri del gruppo, avevano fatto durante i giorni trascorsi. A fine di ogni sprint review si valutava il lavoro compiuto, si creava nuovi task, ci si divideva i nuovi compiti e si stabiliva, approssimativamente, il tempo pensato per lo svolgimento dei nuovi task assegnati. Durante queste sprint review è stato possibile monitorare l'avanzamento del progetto. Inizialmente abbiamo avuto qualche difficoltà a utilizzare la modalità di sviluppo Scrum, perchè non avevamo chiaro come si costruiva e come funzionava un Product Backlog. Qualche difficoltà durante l'avvio del progetto l'abbiamo riscontrata anche nello stimare i tempi per lo svolgimento di ogni singolo task, non sapevamo come calcolare le ore e come metterle nel Product Backlog. E' stato veramente un lavoro di squadra dove ognuno metteva in campo il proprio sapere. A volte alcuni task venivano anche svolti insieme fra alcuni membri del progetto affinchè il know-how di ogni componente potesse aumentare grazie all'altra persona.
-
+\subsection{Modalità di sviluppo}
+\begin{itemize}
+	\item \textbf{Scrum} utilizzato per la gestione del ciclo di sviluppo del progetto.
+\end{itemize}
 \subsection{Strumenti di sviluppo}
 \begin{itemize}
 	\item \textbf{Trello} utilizzato come bacheca per la divisione dei compiti;
@@ -73,18 +72,7 @@ Le user story sono poi state ampliate in vari task, che durante le sprint review
 	\item \textbf{Git} utilizzato per il controllo delle versioni;
 	\item \textbf{GitHub} utilizzato come repository;
 	\item \textbf{Travis CI} utilizzato come build e test del progetto.
-	\item \textbf{Skype} per i meeting a distanza.
-	\item \textbf{TeamViewer} per collaborazione a distanza.
-	\item \textbf{Foglio di calcolo su Google Drive} product backlog.
-	\item \textbf{Java, Scala, JavaScript} come linguaggi di programmazione.
-	\item \textbf{ScalaTest} come tool per il testing.
 \end{itemize}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=1\textwidth]{img/trello01.png}
-	\caption{Bacheca Trello}
-\end{figure}
 
 \section{Requisiti}
 THO è un sistema software utilizzato per supportare l'organizzazione e la fase di gioco di cacce al tesoro. Tale software è composto da due sotto-componenti principali: l'organizzatore ed i giocatori partecipanti alla caccia al tesoro.\\
@@ -259,6 +247,8 @@ La nostra scelta, anche per utilizzi pregressi, è stata MySQL. Il Database è u
 	\item Eventi di gioco, che tracciano tutto quello che succede durante lo svolgimento di una caccia al tesoro.
 \end{itemize}
 
+Quest'ultima tabella è quella più importante per quanto riguarda il flusso di gioco, poichè memorizza ogni evento relativo al gioco in corso, e garantisce persistenza dei dati. Tramite l'utilizzo di questa tabella di log, è possibile risalire in qualsiasi momento ai progressi fatti da ciascun attore del sistema, rimanendo indipendenti dal dispositivo con la quale l'utente gioca.
+
 \subsubsection{Data Access Layer}
 La parte principale del nostro server è il Receiver da noi implementato, che ha il compito di gestire i messaggi in entrata/uscita interfacciandosi con RabbitMQ (che gira sullo stesso server) e occuparsi di fare le operazioni sul DB. La figura 3 illustra quali sono tutte le parti in causa.
 
@@ -314,7 +304,7 @@ Il mio contributo al progetto THO (Treasure Hunt Organizer) ha riguardato princi
 	\item Creazione dell'istanza del database MySQL su Amazon RDS
 	\item Progettazione e creazione del DB
 	\item Data Access Layer: Comunicazione con il DB per tutti i tipi di messaggi e gestione delle operazioni
-	\item Gestione dei Marker sulla mappa dell'Organizer
+	\item Mobile App: Cura dello stile e di alcune funzionalità
 \end{itemize}
 \subsubsection{Istanza del Server Amazon EC2 Micro}
 Per la scelta del server da utilizzare, abbiamo preferito appoggiarci su un server online gratuito, messoci a disposizione da Amazon Web Services, piuttosto che utilizzare un server in locale.\\
@@ -330,7 +320,14 @@ Mi sono occupato di creare e lanciare l'istanza del database su amason RDS, e de
 \subsubsection{Progettazione e Creazione del DB}
 In questa parte mi sono occupato di realizzare lo schema ER, eseguire la progettazione logica e creare le tabelle. Per farlo ho utilizzato strumenti precedentemente utilizzati nel corso di basi di dati, quali DB-Main, per gli schemi, e MySQL Workbench, per la creazione delle tabelle e la gestione del Database remoto durante lo svolgimento del progetto. I dettagli di questa parte di lavoro sono meglio descritti nella sezione del Design.
 \subsubsection{Data Access Layer: Comunicazione con il DB}
+In questa sezione mi sono occupato dell'implementazione di tutte le operazioni da eseguire sul Database. Il codice citato in questa sezione è contenuto nel package "th-server". 
 
+Ho organizzato il codice suddividendo le operazioni per entità, e creando tanti classi quante erano le entità, ciascuna che implementava le operazioni che riguardavano l'entità stessa. Queste classi sono contenute all'interno del package "dboperation".
+
+Le funzionalità implementate nelle classi di cui sopra vengono utilizzate all'interno della classe "Receiver", in base al tipo di messaggio ricevuto tramite RabbitMQ da parte dei giocatori o degli organizzatori.
+
+\subsubsection{Mobile App: Cura dello stile e di alcune funzionalità}
+In questa sezione, mi sono occupato di sistemare lo stile della grafica dell'app, e dell'implementazione di alcune delle funzioni javascript relative al flusso di gioco e allo scambio di messaggi, nei casi in cui fosse necessario comunicare con il database.
 
 \subsection{Francesca Tassinari}
 \begin{itemize}
