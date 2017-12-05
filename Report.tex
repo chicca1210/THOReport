@@ -174,6 +174,14 @@ Il data access layer è inteso come il software che, in esecuzione sul server, s
 \subsubsection{Database}
 Il database è la parte di persistenza dell'intero sistema e memorizza le entità esistenti e l'andamento delle cacce al tesoro.
 
+Di seguito lo schema ER sulla quale è stato costruito il DB, disegnato per inquadrare tutte le possibili entità del nostro progetto, e le relazioni tra esse, con le opportune cardinalità. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/ER.png}
+	\caption{Schema ER del DB}
+\end{figure}
+
 \section{Design di dettaglio}
 %Design di dettaglio (pattern di progettazione, organizzazione del codice -- corredato da pochi ma efficaci diagrammi)
 L'applicazione THO, ha lo scopo di gestire le cacce al tesoro create da un organizzatore che dopo aver scelto una location/città in cui svolgere la gara, aver scelto i punti di interesse, aver inserito i relativi indovinelli nei POI e aver fatto iscrivere i team a una caccia ben specifica potrà far partire la gara.
@@ -214,7 +222,10 @@ L'applicazione mobile l'abbiamo sviluppata con Apache Cordova, abbiamo deciso qu
 
 \subsection{Server}
 \subsubsection{Middleware}
-Abbiamo deciso di utilizzre RabbitMQ come broker per scambiare i messaggi. Questo messagge broker funziona come un ufficio di posta. Ci sono due entità producer e consumer, la prima manda alla seconda un messaggio e la seconda lo riceve. Il messaggio viene conservato prima di essere spedito in un buffer. Abbiamo scelto RabbitMQ perchè ci garantisce:
+Per far si che i vari moduli comunicassero tra loro, abbiamo scelto di utilizzare un middleware, che si occupasse di gestire gli scambi di messaggi tra giocatori, organizzatore e DB. La nostra scelta è ricaduta su RabbitMQ, vista anche la piena integrazione con AWS, che ha fatto si che la sua installazione fosse molto semplice.
+RabbitMQ è il più diffuso Message Broker open source. Leggero e facile da eseguire sul cloud. Supporta diversi protocolli di messaggistica. \\
+RabbitMQ gira su diversi ambienti cloud e sistemi operativi, e mette a disposizione una larga scala di strumenti di sviluppo per molti dei più popolari linguaggi.
+Questo messagge broker funziona come un ufficio di posta. Ci sono due entità, producer e consumer. La prima manda alla seconda un messaggio e la seconda lo riceve. Il messaggio viene conservato prima di essere spedito in un buffer. Abbiamo scelto RabbitMQ perchè ci garantisce:
 \begin{itemize}
 	\item che il messaggio sia stato inviato e che sia ricevuto dal consumer.
 	\item che i messaggi siano inviati in ordine.
@@ -223,13 +234,54 @@ Abbiamo deciso di utilizzre RabbitMQ come broker per scambiare i messaggi. Quest
 Il producer crea il messaggio e lo invia al Message Broker che lo manda al consumer. Il consumer aspetta che gli arrivi un messaggio per poi elaborarli.
 
 \subsubsection{Database}
-Abbiamo pensato anche a come strutturare il database utilizziamo MySQL in modo centralizzato, che memorizza solo i dati permanenti, ovvero un unico DB con all'interno tutte le varie informazioni sugli utenti che partecipano alla caccia al tesoro, i punti d'interesse ecc. L'organizzatore è l'utente che crea una caccia al tesoro aggiungendo i punti d'interesse, i vari quiz e gli indovinelli/coordinate dei POI. Abbiamo pensato anche che l'organizzatore non deve essere lui a leggere/scrivere messaggi con i giocatori, ma questo lo dovrà fare una terza entità. Questa terza entità dovrà occuparsi di ricevere i messaggi leggerli e scriverli nel DB, RabbitMQ è un broker solo per lo scambio di messaggi non legge o scrive messaggi. Questa terza entità  sarà il conduttore del gioco. Abbiamo anche pensato al caso sfortunato che il dispositivo del giocatore che usa durante la caccia al tesoro non funzioni più, in questo caso non sarebbe un problema perchè nel DB il giocatore si è registrato con il suo ID e se il dispositivo non dovesse andare più, potrebbe comunque accedere al database con un altro dispositivo utilizzando l'ID scelto.
+Dovendo scegliere un DB che fosse accessibile dal nostro server online, siamo tornati a bussare alle porte di AWS, e abbiamo trovato un servizio fatto ad hoc per la nostra necessità.\\
+Amazon Relational Database Service (Amazon RDS) semplifica configurazione, utilizzo e ridimensionamento di database relazionali nel cloud. Questo servizio fornisce una capacità ridimensionabile a un costo conveniente, automatizzando al tempo stesso le attività di amministrazione del database più dispendiose in termini di tempo, quali il provisioning di hardware, l'impostazione di database, gli aggiornamenti e i backup. Consente di concentrarsi sulle proprie applicazioni per fornire le prestazioni ottimali, la disponibilità elevata, la sicurezza e la compatibilità di cui hanno bisogno.
+
+Amazon RDS è disponibile in diversi tipi di istanza database, ottimizzati per la memoria, prestazioni o I/O, e permette di scegliere tra sei motori di database comuni, fra cui Amazon Aurora, PostgreSQL, MySQL, MariaDB, Oracle e Microsoft SQL Server. Si può utilizzare l'AWS Database Migration Service per migrare o replicare facilmente database esistenti verso Amazon RDS.
+
+La nostra scelta, anche per utilizzi pregressi, è stata MySQL. Il Database è usato in modo centralizzato, quindi memorizza solo i dati che devono essere permanenti, ovvero:
+\begin{itemize}
+	\item Cacce al tesoro inserite, con relativi punti di interesse, quiz con risposta e indizio per raggiungerli.
+	\item Squadre, con relative iscrizioni alle cacce al tesoro. 
+	\item Organizzatori
+	\item Eventi di gioco, che tracciano tutto quello che succede durante lo svolgimento di una caccia al tesoro.
+\end{itemize}
+
+\subsubsection{Data Access Layer}
+La parte principale del nostro server è il Receiver da noi implementato, che ha il compito di gestire i messaggi in entrata/uscita interfacciandosi con RabbitMQ (che gira sullo stesso server) e occuparsi di fare le operazioni sul DB. La figura 3 illustra quali sono tutte le parti in causa.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{img/rabbit.png}
 	\caption{RabbitMQ e Database}
 \end{figure}
+
+Il Receiver gestisce sia le comunicazioni da parte dell'organizzatore che da parte del giocatore, e fa si che organizzatore e giocatore non comunichino mai direttamente tra loro. Di seguito alcuni flussi di gioco schematizzati:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/SequenceDiagram/userLogin.png}
+	\caption{User Authentication}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/SequenceDiagram/userReachAPOI.png}
+	\caption{User Reach a POI}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/SequenceDiagram/organizerCreateTH.png}
+	\caption{Organizer Create a Treasure Hunt}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/SequenceDiagram/organizerAddNewPOI.png}
+	\caption{Organizer Add a New POI}
+\end{figure}
+
 
 \section{Implementazione}
 \subsection{Ashley Caselli}
@@ -248,25 +300,25 @@ Il mio contributo al progetto THO (Treasure Hunt Organizer) ha riguardato princi
 	\item Creazione dell'Istanza del Server Amazon EC2 Micro
 	\item Installazione di RabbitMQ: Middleware per scambio di messaggi
 	\item Creazione dell'istanza del database MySQL su Amazon RDS
-	\item Gestione delle operazioni sul DB
-	\item Data Access Layer: Comunicazione con il DB per tutti i tipi di messaggi
+	\item Progettazione e creazione del DB
+	\item Data Access Layer: Comunicazione con il DB per tutti i tipi di messaggi e gestione delle operazioni
 	\item Gestione dei Marker sulla mappa dell'Organizer
 \end{itemize}
 \subsubsection{Istanza del Server Amazon EC2 Micro}
 Per la scelta del server da utilizzare, abbiamo preferito appoggiarci su un server online gratuito, messoci a disposizione da Amazon Web Services, piuttosto che utilizzare un server in locale.\\
 Amazon Elastic Compute Cloud (Amazon EC2) è un servizio Web che fornisce capacità di elaborazione sicura e scalabile nel cloud. È concepito per rendere più semplice il cloud computing su scala Web per gli sviluppatori (in prova gratuita per un 1 anno, con pacchetto "Micro").\\
 Questo server ospita sia il Data Access Layer, che comunica direttamente con il DB, che il middleware da noi scelto, di cui si parla nella prossima sezione.
+
+Io mi sono occupato di avviare la procedura per lanciare un istanza, e della configurazione del server perchè ospitasse il nostro software.
+
 \subsubsection{RabbitMQ: Middleware per scambio di messaggi}
-Per far si che i vari moduli comunicassero tra loro, abbiamo scelto di utilizzare un middleware, che si occupasse di gestire gli scambi di messaggi tra giocatori, organizzatore e DB. La nostra scelta è ricaduta su RabbitMQ, vista anche la piena integrazione con AWS, che ha fatto si che la sua installazione fosse molto semplice.
-RabbitMQ è il più diffuso Message Broker open source. Leggero e facile da eseguire sul cloud. Supporta diversi protocolli di messaggistica. \\
-RabbitMQ gira su diversi ambienti cloud e sistemi operativi, e mette a disposizione una larga scala di strumenti di sviluppo per molti dei più popolari linguaggi.
+Come indicato nel capitolo precedente, abbiamo scelto come Message Broker RabbitMQ. Anche in questo caso mi sono occupato dell'installazione sul server e della configurazione.
 \subsubsection{Istanza del Database MySQL: Amazon RDS}
-Dovendo scegliere un DB che fosse accessibile dal nostro server online, siamo tornati a bussare alle porte di AWS, e abbiamo trovato un servizio fatto ad hoc per la nostra necessità.\\
-Amazon Relational Database Service (Amazon RDS) semplifica configurazione, utilizzo e ridimensionamento di database relazionali nel cloud. Questo servizio fornisce una capacità ridimensionabile a un costo conveniente, automatizzando al tempo stesso le attività di amministrazione del database più dispendiose in termini di tempo, quali il provisioning di hardware, l'impostazione di database, gli aggiornamenti e i backup. Consente di concentrarsi sulle proprie applicazioni per fornire le prestazioni ottimali, la disponibilità elevata, la sicurezza e la compatibilità di cui hanno bisogno.
+Mi sono occupato di creare e lanciare l'istanza del database su amason RDS, e della sua configurazione.
+\subsubsection{Progettazione e Creazione del DB}
+In questa parte mi sono occupato di realizzare lo schema ER, eseguire la progettazione logica e creare le tabelle. Per farlo ho utilizzato strumenti precedentemente utilizzati nel corso di basi di dati, quali DB-Main, per gli schemi, e MySQL Workbench, per la creazione delle tabelle e la gestione del Database remoto durante lo svolgimento del progetto. I dettagli di questa parte di lavoro sono meglio descritti nella sezione del Design.
+\subsubsection{Data Access Layer: Comunicazione con il DB}
 
-Amazon RDS è disponibile in diversi tipi di istanza database, ottimizzati per la memoria, prestazioni o I/O, e permette di scegliere tra sei motori di database comuni, fra cui Amazon Aurora, PostgreSQL, MySQL, MariaDB, Oracle e Microsoft SQL Server. Si può utilizzare l'AWS Database Migration Service per migrare o replicare facilmente database esistenti verso Amazon RDS.
-
-La nostra scelta è stata, come indicato nel titolo, il motore MySQL.
 
 \subsection{Francesca Tassinari}
 \begin{itemize}
