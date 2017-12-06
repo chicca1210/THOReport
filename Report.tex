@@ -41,6 +41,7 @@ il modulo desktop è un applicazione pensata per rendere il più semplice possib
 I giocatori, tramite la loro applicazione per smartphone, saranno in grado di partecipare alla caccia al tesoro attraverso una mappa che segue la posizione GPS del telefono, e un sistema di quiz e indizi per aiutarli a raggiungere il prossimo punto di interesse.\\
 Tutti i dati di tutte le cacce al tesoro, sono immagazzinati in un database, alla quale si accede attraverso un server, a cui è delegata anche la gestione della comunicazione.
 
+\newpage
 \section{Processo di sviluppo adottato}
 %Processo di sviluppo adottato (modalità di divisione in itinere dei task, meeting/interazioni pianificate, modalità di revisione in itinere dei task, scelta degli strumenti di test/build/continuous integration)
 
@@ -57,13 +58,14 @@ Inizialmente i membri del progetto "THO" hanno individuato la figura del Product
 
 Al termine di questa fase abbiamo poi pianificato su Trello i 5 sprint da 20 ore, in cui a fine di ognuno di essi, abbiamo fatto una sprint review.\\Dopo aver svolto l'analisi del problema abbiamo creato il Product Backlog composto da varie user story, suddivise nei 5 sprint in ordine di priorità. \\
 
-{\ [immagine del product backlog]}\\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/backlog01.png}
+    \caption{Product Backlog}
+\end{figure}
 
 Le user story sono poi state ampliate in vari task, che durante le sprint review ogni membro del team doveva assegnarsi per poi portare a termine. \\Una sprint review iniziava raccontandoci e spiegandoci cosa, uno o più membri del gruppo, avevano fatto durante i giorni trascorsi. A fine di ogni sprint review si valutava il lavoro compiuto, si creava nuovi task, ci si divideva i nuovi compiti e si stabiliva, approssimativamente, il tempo pensato per lo svolgimento dei nuovi task assegnati. Durante queste sprint review è stato possibile monitorare l'avanzamento del progetto. Inizialmente abbiamo avuto qualche difficoltà a utilizzare la modalità di sviluppo Scrum, perchè non avevamo chiaro come si costruiva e come funzionava un Product Backlog. Qualche difficoltà durante l'avvio del progetto l'abbiamo riscontrata anche nello stimare i tempi per lo svolgimento di ogni singolo task, non sapevamo come calcolare le ore e come metterle nel Product Backlog. E' stato veramente un lavoro di squadra dove ognuno metteva in campo il proprio sapere. A volte alcuni task venivano anche svolti insieme fra alcuni membri del progetto affinchè il know-how di ogni componente potesse aumentare grazie all'altra persona.
-\subsection{Modalità di sviluppo}
-\begin{itemize}
-	\item \textbf{Scrum} utilizzato per la gestione del ciclo di sviluppo del progetto.
-\end{itemize}
+
 \subsection{Strumenti di sviluppo}
 \begin{itemize}
 	\item \textbf{Trello} utilizzato come bacheca per la divisione dei compiti;
@@ -72,8 +74,20 @@ Le user story sono poi state ampliate in vari task, che durante le sprint review
 	\item \textbf{Git} utilizzato per il controllo delle versioni;
 	\item \textbf{GitHub} utilizzato come repository;
 	\item \textbf{Travis CI} utilizzato come build e test del progetto.
+    \item \textbf{Skype} per i meeting a distanza.
+    \item \textbf{TeamViewer} per collaborazione a distanza.
+    \item \textbf{Foglio di calcolo su Google Drive} product backlog.
+    \item \textbf{Java, Scala, JavaScript} come linguaggi di programmazione.
+    \item \textbf{ScalaTest} come tool per il testing.
 \end{itemize}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/trello01.png}
+    \caption{Bacheca Trello}
+\end{figure}
+
+\newpage
 \section{Requisiti}
 THO è un sistema software utilizzato per supportare l'organizzazione e la fase di gioco di cacce al tesoro. Tale software è composto da due sotto-componenti principali: l'organizzatore ed i giocatori partecipanti alla caccia al tesoro.\\
 Il sotto-sistema organizzatore consiste in un'applicazione desktop che permette di scegliere una città/location per il gioco tramite una mappa interattiva. Successivamente è possibile delinearne il percorso che sarà composto dai punti di interesse (tappe). Viene resa inoltre possibile la creazione di mini giochi/indovinelli che corrisponderanno alle prove da superare nel momento in cui i partecipanti raggiungeranno le varie tappe.\\
@@ -139,7 +153,7 @@ I requisiti non funzionali sono stati identificati come segue:
 \end{itemize}
 %Rabbit Usage: As a possible counter-effect is that adding RabbitMQ in the middle, you will add some latency to the solution. However you have the possibility to gain in terms of reliability, flexibility, scalability,...
 
-
+\newpage
 \section{Design architetturale}
 %Design architetturale (pattern architetturali usati, componenti del sistema distribuito, scelte tecnologiche cruciali ai fini architetturali -- corredato da pochi ma efficaci diagrammi)
 In questa sezione descriviamo le scelte effettuate a livello architetturale. Quindi la struttura del progetto e l'idea è dietro ad ogni modulo di quest'ultimo.\\
@@ -182,6 +196,7 @@ Di seguito lo schema ER sulla quale è stato costruito il DB, disegnato per inqu
 	\caption{Schema ER del DB}
 \end{figure}
 
+\newpage
 \section{Design di dettaglio}
 %Design di dettaglio (pattern di progettazione, organizzazione del codice -- corredato da pochi ma efficaci diagrammi)
 L'applicazione THO, ha lo scopo di gestire le cacce al tesoro create da un organizzatore che dopo aver scelto una location/città in cui svolgere la gara, aver scelto i punti di interesse, aver inserito i relativi indovinelli nei POI e aver fatto iscrivere i team a una caccia ben specifica potrà far partire la gara.
@@ -284,7 +299,7 @@ Il Receiver gestisce sia le comunicazioni da parte dell'organizzatore che da par
 	\caption{Organizer Add a New POI}
 \end{figure}
 
-
+\newpage
 \section{Implementazione}
 \subsection{Ashley Caselli}
 \begin{itemize}
@@ -340,7 +355,7 @@ Nel progetto Treasure Hunt Organizer, Giacomo Mambelli si è occupato principalm
 	\item Creazione dei messaggi in collaborazione con Ashley Caselli
 	\item Applicazione mobile
 	\item Data access layer - Receiver
-	\item Organizer message exchange
+	\item Organizer model
 \end{itemize}
 \subsubsection{Applicazione mobile}
 Il codice citato in questa sezione è contenuto nel package th-player.
@@ -397,7 +412,27 @@ Ogni canale sul quale il receiver deve ricevere messaggi gestisce le stringhe in
 Per ogni tipo di messaggio ricevuto vengono chiamate le opportune funzione di lettura/aggiornamento/cancellazione del database.
 La risposta viene inviata con una chiamata basicPublish() sull'opportuna coda.
 
-\subsubsection{Organizer message exchange}
+\subsubsection{Organizer model}
+La classe THModel del modulo desktop rappresenta la logica dell'applicazione organizzatore.
+Le funzioni implementate al suo interno hanno nella quasi totalità dei casi una triplice funzione:
+\begin{itemize}
+	\item Comunicare al server la creazione/eliminazione di una entità
+	\item Mantenere e aggiornare strutture dati locali che modellino lo stato corrente della caccia al tesoro aperta
+	\item Notificare gli observer
+\end{itemize}
+\subsubsection*{Comunicazione col server}
+Lo scambio di messaggi viene gestito tramite chiamate al broker al quale viene passato un messaggio già serializzato. La risposta viene deserializzata e opportunamente gestita.
+\subsubsection*{Dati in locale}
+Il model salva all'interno delle opportune strutture dati la lista delle cacce al tesoro disponibili ricevuta dal server, la caccia al tesoro corrente e una lista dei POI della caccia corrente (ognuno dei quali contiene clue, quiz, position,...)
+\subsubsection*{Notifica agli observer}
+La notifica di un avvenuto cambiamento ai dati agli observer viene effettuata con la chiamata a notifyObservers() che riceve in ingresso dati sottoforma di messaggio serializzato.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{img/code01.png}
+	\caption{Esempio funziona scala}
+\end{figure}
+
 \subsection{Parti in comune}
 
 \subsubsection{Entità principali ( Caselli - Mambelli )}
@@ -439,7 +474,7 @@ L'eccezione NoMsgDefinedException viene lanciata nel caso il msgType sia sconosc
 	\caption{Trait e classi Message}
 \end{figure}
 
-%\section{Deployment}
+\newpage
 \section{Retrospettiva}
 %Restrospettiva (descrizione finale dettagliata dell'andamento dello sviluppo, del backlog, delle iterazioni; commenti finali)
 \begin{itemize}
