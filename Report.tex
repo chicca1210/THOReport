@@ -56,15 +56,16 @@ Inizialmente i membri del progetto "THO" hanno individuato la figura del Product
 	\item Scelta dei linguaggi di programmazione desktop e mobile.
 \end{itemize}
 
-Al termine di questa fase abbiamo poi pianificato su Trello i 5 sprint da 20 ore, in cui a fine di ognuno di essi, abbiamo fatto una sprint review.\\Dopo aver svolto l'analisi del problema abbiamo creato il Product Backlog composto da varie user story, suddivise nei 5 sprint in ordine di priorità. \\
+Al termine di questa fase per gestire lo sviluppo del progetto abbiamo deciso di utilizzare il framework Scrum, per la gestione del ciclo di sviluppo del software, iterativo ed incrementale, utilizzando la metodologia agile. Noi ci siamo messi d'accordo e abbiamo deciso di incontrarci faccia a faccia il più spesso possibile e quando non era possibile abbiamo programmato incontri tramite Skype.Abbiamo spesso lavorato insieme dando sempre consigli e idee a vicenda. 
+Alla fine di ogni Sprint, ci siamo riuniti tutti insieme per raccontare il lavoro fatto, spiegandolo in modo dettagliato e decidere, partire con lo Sprint successivo. Sfortunatamente, a causa di impegni o motivi personali, ogni membro non ha potuto dedicare il suo tempo solo a questo progetto. Per questo motivo, non siamo riusciti nemmeno dividere equamente i
+compiti tra i membri per ogni Sprint o dividerli con uguale quantità di ore. Quindi, la gestione di Sprints è stata effettuata in un modo non sempre giusto.
+Un esempio di come è stata gestita la suddivisione dei compiti la abbiamo qui nella figura che rappresenta il product backlog creato da noi.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{img/backlog01.png}
     \caption{Product Backlog}
 \end{figure}
-
-Le user story sono poi state ampliate in vari task, che durante le sprint review ogni membro del team doveva assegnarsi per poi portare a termine. \\Una sprint review iniziava raccontandoci e spiegandoci cosa, uno o più membri del gruppo, avevano fatto durante i giorni trascorsi. A fine di ogni sprint review si valutava il lavoro compiuto, si creava nuovi task, ci si divideva i nuovi compiti e si stabiliva, approssimativamente, il tempo pensato per lo svolgimento dei nuovi task assegnati. Durante queste sprint review è stato possibile monitorare l'avanzamento del progetto. Inizialmente abbiamo avuto qualche difficoltà a utilizzare la modalità di sviluppo Scrum, perchè non avevamo chiaro come si costruiva e come funzionava un Product Backlog. Qualche difficoltà durante l'avvio del progetto l'abbiamo riscontrata anche nello stimare i tempi per lo svolgimento di ogni singolo task, non sapevamo come calcolare le ore e come metterle nel Product Backlog. E' stato veramente un lavoro di squadra dove ognuno metteva in campo il proprio sapere. A volte alcuni task venivano anche svolti insieme fra alcuni membri del progetto affinchè il know-how di ogni componente potesse aumentare grazie all'altra persona.
 
 \subsection{Strumenti di sviluppo}
 \begin{itemize}
@@ -345,9 +346,17 @@ Le funzionalità implementate nelle classi di cui sopra vengono utilizzate all'i
 In questa sezione, mi sono occupato di sistemare lo stile della grafica dell'app, e dell'implementazione di alcune delle funzioni javascript relative al flusso di gioco e allo scambio di messaggi, nei casi in cui fosse necessario comunicare con il database.
 
 \subsection{Francesca Tassinari}
+Il mio contributo è legato pricipalmente al design della:
 \begin{itemize}
-	\item player HTML;
+	\item applicazione mobile;
+	\item applicazione desktop;
 \end{itemize}
+\subsubsection{Applicazione mobile}
+L'applicazione mobile è stata implementata nel package th-player. Abbiamo deciso di svilupparla come applicazione ibrida, basata sul framework Apache Cordova, la motivazione di questa decisione è stata presa perchè abbiamo pensato fosse la soluzione migliore per comprendere tutte le piattaforme mobile. Ho sviluppato l'applicazione mobile tramite cordova implementando in index.html, lo scheletro della pagina aggiungendo i vari bottoni e le caselle di testo per, effettuare il login oppure per il caricamento di una caccia al tesoro. Per lo stile della pagina ho pensato fosse meglio svilupparlo tramite Sass che introduce una nuova sintassi nota come SCSS che è pienamente compatibile con la sintassi dei CSS. Poiché SCSS è un'estensione CSS, tutto ciò che funziona in CSS funziona in SCSS. In Sass a differenza del CSS si possono utilizzare variabili e fare mixing di diverse pagine SCSS. Per elaborare i dati oppure fare calcoli della pagina html ho sviluppato index.js, una pagina Javascript dove riusciamo, tramite localstrorage, a salvarci i dati che abbiamo aggiunto nel momento del login oppure quando stiamo per caricare una nuova caccia al tesoro. Abbiamo aggiunto la mappa nella applicazione mobile dove io ho creato i vari bottoni per es:visualizzare l'ultimo indizio ecc.
+\subsubsection {Applicazione desktop}
+Nell'applicazione desktop, che utilizzerà l'organizzatore della caccia al tesoro per creare una nuova caccia oppure per iniziare una già ideata, ho creato il bottone per l'avvio della caccia al tesoro comunicando al broker tramite un invio di un messaggio che la caccia è partita. La stessa cosa è stata fatta per il bottone di stop di una caccia al tesoro, ovvero tramite uno scambio di messaggi viene comunicato lo stop della caccia, essa poi viene stoppata proprio quando l'organizzatore decide che quella caccia al tesoro è conclusa.
+\subsubsection{Creazionione nuovi Poi}
+Abbiamo deciso di far visualizzare una mappa del luogo della caccia al tesoro, appena viene creata una nuova caccia oppure quando verrà caricata. La mappa del luogo visualizzerà dove si svolgerà la caccia al tesoro. Ho implementato la funzionalità di aggiunta di un marker cliccando direttamente sulla mappa e in di inserire i rispettivi quiz del poi in cui ci si trova, e dell'indizio per trovare il punto di interesse successivo.
 \subsection{Giacomo Mambelli}
 Nel progetto Treasure Hunt Organizer, Giacomo Mambelli si è occupato principalmente delle fasi di design e implementazione di:
 \begin{itemize}
@@ -477,6 +486,9 @@ L'eccezione NoMsgDefinedException viene lanciata nel caso il msgType sia sconosc
 \newpage
 \section{Retrospettiva}
 %Restrospettiva (descrizione finale dettagliata dell'andamento dello sviluppo, del backlog, delle iterazioni; commenti finali)
+Abbiamo pianificato su Trello i 5 sprint da 20 ore, in cui a fine di ognuno di essi, abbiamo fatto una sprint review.\\Dopo aver svolto l'analisi del problema abbiamo creato il Product Backlog composto da varie user story, suddivise nei 5 sprint in ordine di priorità. \\
+Le user story sono poi state ampliate in vari task, che durante le sprint review ogni membro del team doveva assegnarsi per poi portare a termine. \\Una sprint review iniziava raccontandoci e spiegandoci cosa, uno o più membri del gruppo, avevano fatto durante i giorni trascorsi. A fine di ogni sprint review si valutava il lavoro compiuto, si creava nuovi task, ci si divideva i nuovi compiti e si stabiliva, approssimativamente, il tempo pensato per lo svolgimento dei nuovi task assegnati. Durante queste sprint review è stato possibile monitorare l'avanzamento del progetto. Inizialmente abbiamo avuto qualche difficoltà a utilizzare la modalità di sviluppo Scrum, perchè non avevamo chiaro come si costruiva e come funzionava un Product Backlog. Qualche difficoltà durante l'avvio del progetto l'abbiamo riscontrata anche nello stimare i tempi per lo svolgimento di ogni singolo task, non sapevamo come calcolare le ore e come metterle nel Product Backlog. Sfortunatamente non siamo neanche riusciti a suddividerci il lavoro in modo equo. E' stato veramente un lavoro di squadra dove ognuno metteva in campo il proprio sapere. A volte alcuni task venivano anche svolti insieme fra alcuni membri del progetto affinchè il know-how di ogni componente potesse aumentare grazie all'altra persona.
+
 \begin{itemize}
 	\item creare per i giocatori che parteciperanno a team un metodo per gestire loro più device che però si riferiscano al loro team;
 	\item creare un messaggio che dopo un timer definito dall'organizzatore, che mandi dal device del team la sua posizione alla applicazione desktop per mostrare dove si trovano e l'organizzarore possa mandare un messaggio per aiutarli a trovare il prossimo punto di interesse;
