@@ -95,7 +95,6 @@ Durante la fase di gioco è inoltre possibile controllarne l'andamento, visualiz
 				\item Aggiunta/Rimozione dei punti di interesse 
 				\item Aggiunta del relativo quiz (domanda e risposta) ed indizio per raggiungere il punto di interesse in questione
 				\item Diffusione di un codice univoco che identifica la caccia al tesoro e permette l'iscrizione agli utenti
-%				\item Gestione dello stato della caccia al tesoro (avvio)
 			\end{enumerate}
 		\item Caricamento di una caccia al tesoro preesistente
 		\begin{enumerate}[label=(\alph*)]
@@ -124,29 +123,34 @@ Durante la fase di gioco è inoltre possibile controllarne l'andamento, visualiz
 				\item [e.] Ricevere gli indizi per raggiungere la nuova caccia al tesoro.
 			\end{enumerate}
 		\end{enumerate} 
-	%\item \textbf{Lato Server}
-	%	\begin{enumerate}
-	%		\item Il server deve gestire le operazioni sul database.
-	%		\item Il server deve gestire i messaggi in ingresso e inviare le risposte.
-	%	\end{enumerate}
 \end{itemize}
 
 
 \subsection{Requisiti non funzionali}
 I requisiti non funzionali sono stati identificati come segue:
 \begin{itemize}
-	\item Sia la parte desktop e l'applicazione mobile devono essere user-friendly.
-	\item La creazione di una nuova caccia al tesoro, con i rispettivi punti di interesse, quiz e indizi devono essere salvati nel database.
-	\item Quando un giocatore arriva a un punto di interesse gli deve arrivare il quiz, se risponde correttamente a un quiz gli deve essere mandato l'indizio del punto di interesse successivo.
-	\item Quando un giocatore finisce la caccia al tesoro gli verrà notificato al suo dispositivo e verrà notificato anche all'organizzatore.
+	\item Sia la parte desktop che l'applicazione mobile devono essere user-friendly
+	\item Tutte le informazioni devono essere memorizzate su un apposito database per garantire il salvataggio dei progessi di gioco
+	\item Permettere ai giocatori l'indipendenza dal dispositivo fisico usato per giocare. Ciò implica la possibilità di cambiare il dispositivo in maniera trasparente al sistema
+	\item Possibilità da parte di un giocatore di recuperare i progressi della propria partita dopo un malfunzionamento/cambio del dispositivo
 \end{itemize}
-%Rabbit Usage: As a possible counter-effect is that adding RabbitMQ in the middle, you will add some latency to the solution. However you have the possibility to gain in terms of reliability, flexibility, scalability,...
 
 \newpage
 \section{Design architetturale}
 %Design architetturale (pattern architetturali usati, componenti del sistema distribuito, scelte tecnologiche cruciali ai fini architetturali -- corredato da pochi ma efficaci diagrammi)
-In questa sezione descriviamo le scelte effettuate a livello architetturale. Quindi la struttura del progetto e l'idea è dietro ad ogni modulo di quest'ultimo.\\
 Sono stati identificati 3 moduli: Desktop, inteso come software dell'organizzatore di cacce al tesoro; Mobile inteso come applicazione dei utilizzata dai partecipanti; Server, cioè modulo demandato allo scambio dei messaggi e alla persistenza.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{img/domain_model.png}
+	\caption{Domain Model}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.9\textwidth]{img/messages_model.png}
+	\caption{Modello Messaggi}
+\end{figure}
 
 \begin{figure}[H]
 	\centering
