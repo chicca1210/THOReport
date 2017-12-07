@@ -32,11 +32,11 @@
 % descrizione anche sommaria di cosa il sistema implementato realizza
 % This document contains the final work of PPS course. The goal has been
 % Il focus di tale progetto è, oltre all'effettivo sviluppo del sistema, il processo adottato per lo sviluppo in team, mettendo in pratica al meglio possibile ciò che è stato ampiamente studiato nel corso.
-Questo documento contiene il frutto del lavoro svoltosi durante il corso di Paradigmi di programmazione e sviluppo. L'obbiettivo di questo progetto, oltre allo sviluppo del sistema, è concentrarsi sul lavoro in team e di suddivisione dei compiti in un gruppo. 
-Lo scopo del progetto è l'implementazione di un sistema software, utilizzando buone tecniche di implementazione, organizzazione in team e flusso di lavoro, e applicando nel miglior modo possibile gli insegnamenti del corso.\\
+Questo documento contiene il frutto del lavoro svoltosi durante il corso di Sviluppo dei Sistemi Software. L'obbiettivo di questo progetto, oltre allo sviluppo del sistema, è concentrarsi sul lavoro in team e di suddivisione dei compiti in un gruppo.
+Lo scopo del progetto è la creazione di un sistema software utilizzando buone tecniche di progettazione, implementazione, organizzazione del team e flusso di lavoro. Ultimo, ma non meno importante, è l'applicazione nel migliore modo possibile degli insegnamenti appresi durante il corso.\\
 
-THO (Treasure Hunt Organizer) è un sistema software che funge da supporto all'organizzazione e alla fase di gioco di una caccia al tesoro. il sistema fornisce un'applicazione desktop all'organizzatore della caccia al tesoro, ed una web app progettata per i giocatori.\\
-il modulo desktop è un applicazione pensata per rendere il più semplice possibile l'organizzazione di una caccia al tesoro. Questo scopo viene raggiunto mediate una GUI minimale che permette di gestire le cacce al tesoro con i loro punti di interesse (tappe).\\
+THO (Treasure Hunt Organizer) è un sistema software che funge da supporto all'organizzazione e alla fase di gioco di una caccia al tesoro. Il sistema fornisce un'applicazione desktop all'organizzatore della caccia al tesoro, ed una web app progettata per i giocatori.\\
+Il modulo desktop è un applicazione pensata per rendere il più semplice possibile l'organizzazione di una caccia al tesoro. Questo scopo viene raggiunto mediate una GUI minimale che permette di gestire le cacce al tesoro con i loro punti di interesse (tappe).\\
 
 I giocatori, tramite la loro applicazione per smartphone, saranno in grado di partecipare alla caccia al tesoro attraverso una mappa che segue la posizione GPS del telefono, e un sistema di quiz e indizi per aiutarli a raggiungere il prossimo punto di interesse.\\
 Tutti i dati di tutte le cacce al tesoro, sono immagazzinati in un database, alla quale si accede attraverso un server, a cui è delegata anche la gestione della comunicazione.
@@ -44,48 +44,36 @@ Tutti i dati di tutte le cacce al tesoro, sono immagazzinati in un database, all
 \newpage
 \section{Processo di sviluppo adottato}
 %Processo di sviluppo adottato (modalità di divisione in itinere dei task, meeting/interazioni pianificate, modalità di revisione in itinere dei task, scelta degli strumenti di test/build/continuous integration)
+In accordo con i temi proposti nel corso si è deciso di abbracciare il manifesto Agile, in particolare il framework Scrum per la gestione del ciclo di sviluppo del software.\\
+In breve l'utilizzo di tale framework prevede la divisione del team in ruoli specifici come Product Owner (PO), Sviluppatori che compongono il Team di Sviluppo e Scrum Master. In questo caso, pur adottando Scrum, non sono state seguite le linee guida alla perfezione poiché non è stato possibile per ovvie ragioni avere la presenza dello Scrum Master. Inoltre, sempre seguendo le linee guida, il Product Owner non dovrebbe far parte del Team di Sviluppo; regola che è stata violata in questo progetto per semplificare la gestione.
 
 \subsection{Metodologia di sviluppo}
-Inizialmente i membri del progetto "THO" hanno individuato la figura del Product Owner in Carmine Vattimo come autore dell'idea proposta. Per lo sviluppo del sistema THO si è adottato un approccio Agile di schedulazione divisione e verifica dei task adottando come modalità di sviluppo Scrum. 
-\\ Inizialmente abbiamo proceduto ad analizzare l'idea iniziale del progetto come segue:
-\begin{itemize}
-	\item Individuazioni specifiche di base;
-	\item Individuazione entità da sviluppare;
-	\item Scelta di quale broker per lo scambio di messaggi utilizzare;
-	\item Scelta del database;
-	\item Scelta dei linguaggi di programmazione desktop e mobile.
-\end{itemize}
-
-Al termine di questa fase per gestire lo sviluppo del progetto abbiamo deciso di utilizzare il framework Scrum, per la gestione del ciclo di sviluppo del software, iterativo ed incrementale, utilizzando la metodologia agile. Noi ci siamo messi d'accordo e abbiamo deciso di incontrarci faccia a faccia il più spesso possibile e quando non era possibile abbiamo programmato incontri tramite Skype.Abbiamo spesso lavorato insieme dando sempre consigli e idee a vicenda. 
-Alla fine di ogni Sprint, ci siamo riuniti tutti insieme per raccontare il lavoro fatto, spiegandolo in modo dettagliato e decidere, partire con lo Sprint successivo. Sfortunatamente, a causa di impegni o motivi personali, ogni membro non ha potuto dedicare il suo tempo solo a questo progetto. Per questo motivo, non siamo riusciti nemmeno dividere equamente i
-compiti tra i membri per ogni Sprint o dividerli con uguale quantità di ore. Quindi, la gestione di Sprints è stata effettuata in un modo non sempre giusto.
-Un esempio di come è stata gestita la suddivisione dei compiti la abbiamo qui nella figura che rappresenta il product backlog creato da noi.
-
+Come primo passo è stato identificato il Product Owner (PO) nella persona di Carmine Vattimo poiché autore della proposta di progetto. Come descritto in precedenza il PO è stato incluso nel Team di Sviluppo che è composto da tutti i componenti del gruppo.\\
+Completata la suddivisione dei ruoli siamo passati alla gestione del flusso di lavoro ed alla suddivisione dei task per ogni componente del gruppo. Sono state identificate le modalità di sviluppo programmando sprint fissi ogni 1/2 settimane a seconda del carico di lavoro presente all'interno di ognuno di essi.\\
+Dopo una accurata valutazione è stato deciso di suddividere il lavoro in 5 sprint, come è evidenziato dal product backlog (\ref{product_backlog}).
+Al termine di ogni sprint si è tenuta una sprint review per analizzare il lavoro svolto, discutere delle difficoltà riscontrate e programmare il nuovo sprint. Inoltre, durante il corso di ogni sprint c'è stata una comunicazione costante per favorire la collaborazione tra i vari membri del team.
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{img/backlog01.png}
     \caption{Product Backlog}
+    \label{product_backlog}
 \end{figure}
-
 \subsection{Strumenti di sviluppo}
+Di seguito vengono elencati gli strumenti che sono stati scelti per la gestione e realizzazione del progetto:
 \begin{itemize}
-	\item \textbf{Trello} utilizzato come bacheca per la divisione dei compiti;
-	\item \textbf{Gradle} utilizzato come sistema per lo sviluppo del progetto;
-	\item \textbf{IntelliJ IDEA} ambiente di sviluppo;
-	\item \textbf{Git} utilizzato per il controllo delle versioni;
-	\item \textbf{GitHub} utilizzato come repository;
-	\item \textbf{Travis CI} utilizzato come build e test del progetto.
-    \item \textbf{Skype} per i meeting a distanza.
-    \item \textbf{TeamViewer} per collaborazione a distanza.
-    \item \textbf{Foglio di calcolo su Google Drive} product backlog.
-    \item \textbf{Java, Scala, JavaScript} come linguaggi di programmazione.
-    \item \textbf{ScalaTest} come tool per il testing.
+	\item \textbf{Trello} utilizzato come strumento per l'organizzazione del team e per la gestione del progetto in accordo con le modalità di Scrum (Backlog virtuale, \ref{trello_board}). Diversi plugin sono stati utilizzati in modo da semplificare la gestione del conto ore
+	\item \textbf{Gradle} utilizzato come supporto alla gestione delle dipendenze ed al ciclo di vita del progetto
+	\item \textbf{IntelliJ IDEA} utilizzato come ambiente di sviluppo principale
+	\item \textbf{Git} utilizzato per il controllo delle versioni, in particolare usando il Git Flow descritto a lezione
+	\item \textbf{GitHub} utilizzato come servizio di repository remoto
+	\item \textbf{Travis CI} integrato con il repo GitHub, è stato utilizzato per le funzionalità di Continuous Integration (build and test) e Continuous Deployment
 \end{itemize}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{img/trello01.png}
     \caption{Bacheca Trello}
+    \label{trello_board}
 \end{figure}
 
 \newpage
