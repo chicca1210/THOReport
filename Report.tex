@@ -478,13 +478,17 @@ L'eccezione NoMsgDefinedException viene lanciata nel caso il msgType sia sconosc
 \newpage
 \section{Retrospettiva}
 %Restrospettiva (descrizione finale dettagliata dell'andamento dello sviluppo, del backlog, delle iterazioni; commenti finali)
-Abbiamo pianificato su Trello i 5 sprint da 20 ore, in cui a fine di ognuno di essi, abbiamo fatto una sprint review.\\Dopo aver svolto l'analisi del problema abbiamo creato il Product Backlog composto da varie user story, suddivise nei 5 sprint in ordine di priorità. \\
-Le user story sono poi state ampliate in vari task, che durante le sprint review ogni membro del team doveva assegnarsi per poi portare a termine. \\Una sprint review iniziava raccontandoci e spiegandoci cosa, uno o più membri del gruppo, avevano fatto durante i giorni trascorsi. A fine di ogni sprint review si valutava il lavoro compiuto, si creava nuovi task, ci si divideva i nuovi compiti e si stabiliva, approssimativamente, il tempo pensato per lo svolgimento dei nuovi task assegnati. Durante queste sprint review è stato possibile monitorare l'avanzamento del progetto. Inizialmente abbiamo avuto qualche difficoltà a utilizzare la modalità di sviluppo Scrum, perchè non avevamo chiaro come si costruiva e come funzionava un Product Backlog. Qualche difficoltà durante l'avvio del progetto l'abbiamo riscontrata anche nello stimare i tempi per lo svolgimento di ogni singolo task, non sapevamo come calcolare le ore e come metterle nel Product Backlog. Sfortunatamente non siamo neanche riusciti a suddividerci il lavoro in modo equo. E' stato veramente un lavoro di squadra dove ognuno metteva in campo il proprio sapere. A volte alcuni task venivano anche svolti insieme fra alcuni membri del progetto affinchè il know-how di ogni componente potesse aumentare grazie all'altra persona.
+In base alla metodologia Agile, abbiamo pianificato su Trello i 5 sprint da 20 ore, e, alla fine di ognuno di essi, abbiamo fatto una sprint review.\\Dopo aver svolto l'analisi del problema abbiamo creato il Product Backlog composto da varie user story, suddivise nei 5 sprint in ordine di priorità. \\
+Durante i primi incontri, ci siamo visti faccia a faccia per eseguire la raccolta dei requisiti, e discutere dell'architettura del sistema. Abbiamo impostato l'ambiente di sviluppo, compresi i repository e gli strumenti di build automatica.
+In base alla raccolta dei requisiti, abbiamo scelto la parte da cui iniziare e abbiamo cominciato a lavorare.
 
-\begin{itemize}
-	\item creare per i giocatori che parteciperanno a team un metodo per gestire loro più device che però si riferiscano al loro team;
-	\item creare un messaggio che dopo un timer definito dall'organizzatore, che mandi dal device del team la sua posizione alla applicazione desktop per mostrare dove si trovano e l'organizzarore possa mandare un messaggio per aiutarli a trovare il prossimo punto di interesse;
-	\item 
-\end{itemize}
+Per la scelta dell'infrastruttura ci siamo affidati fin da subito ad AWS (Amazon Web Services) lanciando due istanze: una per la computazione (EC2) ed una per il Database (RDS). 
+Durante la configurazione di queste istanze abbiamo avuto alcune difficoltà, risolte grazie al lavoro di squadra, consultando alcune guide online.
+Per la scelta del middleware, ci siamo affidati a RabbitMQ, vista anche l'integrazione con i sistemi di AWS. Anche in questo caso, sebbene la configurazione iniziale non ci abbia portato via molto tempo, abbiamo riscontrato non poche difficoltà nell'impostare la comunicazione nel modo giusto tra le varie entità in gioco (Server, App Desktop e App Mobile).
+
+Per quanto riguarda SCRUM, inizialmente abbiamo avuto difficoltà nel riuscire a stimare i tempi corretti per ogni task, ma continuando a lavorarci sopra siamo migliorati. L'ultima parte del progetto, causa indisponibilità di alcuni dei membri del team, è stata svolta dopo un periodo di pausa dovuto alla stima dei tempi sbagliata, che ci ha portato a non terminare nei tempi previsti.
+
+L'ultimo mese in cui è stato ultimato il progetto, non sono state rispettate le regole di Scrum, dovute anche al fatto che non era facile comunicare tra noi, dato che uno dei componenti del gruppo era in erasmus in germania. Tuttavia è stato necessario procedere in modo "non consono" per garantire la consegna del progetto nei nuovi tempi previsti.
+
 \vspace{-30pt}
 \end{document}
